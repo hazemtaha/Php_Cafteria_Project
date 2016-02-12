@@ -137,10 +137,21 @@ function Get_Products(){
     function get_PName(){
         DbConnection::getConnection();
         $sql = "Select p_name FROM products where p_id='".$_POST["p_id"]."'";
-        if ( DbConnection::getConnection()->query($sql) === TRUE) {
-            echo "New record created successfully";
 
-        } else {
+        if ( DbConnection::getConnection()->query($sql) === TRUE) {
+            echo "Query success";
+            $result = DbConnection::getConnection()->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    return $row["p_name"];
+                }
+            } else {
+
+                return 0;
+
+        }}
+        else {
             echo "Error: " . $sql . "<br>" . DbConnection::getConnection()->query($sql) ->error;
         }
 
