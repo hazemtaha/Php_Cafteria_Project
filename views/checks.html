@@ -49,7 +49,39 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Orders</h1>
+            <h1>Checks</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-sm-4">
+              <div class="input-group date" data-provide="datepicker">
+                <input type="text" class="form-control">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-th"></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="input-group date" data-provide="datepicker">
+                <input type="text" class="form-control">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-th"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="btn-group btn-group-lg" data-toggle="buttons">
+              <a class="btn btn-link dropdown-toggle" data-toggle="dropdown"> User <i class="fa fa-caret-down"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a href="#">Action</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <hr>
@@ -59,39 +91,29 @@
               <table class="table table-hover bg-success">
                 <thead>
                   <tr>
-                    <th>Order Date</th>
                     <th>Name</th>
-                    <th>Room</th>
-                    <th>Ext</th>
-                    <th>Action</th>
+                    <th>Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>10-10-2015 10:30 AM</td>
-                    <td>Hussien Ashour</td>
-                    <td>2014</td>
-                    <td>254</td>
                     <td>
-                      <a href="#">Deliver</a>
-                    </td>
+                      <a href="#orders" data-toggle="collapse"> + </a>John</td>
+                    <td>115</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="#orders" data-toggle="collapse"> + </a>Mary</td>
+                    <td>225</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="#orders" data-toggle="collapse"> + </a>July</td>
+                    <td>332</td>
                   </tr>
                 </tbody>
               </table>
-              <div id="orderDetails" class="block-center">
-                <img src="https://unsplash.imgix.net/photo-1421986527537-888d998adb74?w=1024&amp;q=50&amp;fm=jpg&amp;s=e633562a1da53293c4dc391fd41ce41d"
-                width="200px" class="col-sm-4">
-                <img src="https://unsplash.imgix.net/photo-1423683249427-8ca22bd873e0?w=1024&amp;q=50&amp;fm=jpg&amp;s=5e57c661d0f772ce269188a6f5325708"
-                width="200px" class="col-sm-4">
-                <img src="https://unsplash.imgix.net/photo-1423347834838-5162bb452ca7?w=1024&amp;q=50&amp;fm=jpg&amp;s=c255e589621f06513c1d123c7323fe9c"
-                width="200px" class="col-sm-4">
-              </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-right">
-            <p>Total: EGP 40</p>
           </div>
         </div>
       </div>
@@ -99,46 +121,87 @@
     <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-8 col-md-offset-2"></div>
+          <div class="col-md-offset-1 col-md-10">
+            <div id="orders" class="collapse">
+              <table class="table table-hover bg-success">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href="#orderDetails" data-toggle="collapse"> + </a>John</td>
+                    <td>115</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="#orderDetails" data-toggle="collapse"> + </a>Mary</td>
+                    <td>225</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="#orderDetails" data-toggle="collapse"> + </a>July</td>
+                    <td>332</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       <div class="section">
         <div class="container">
           <div class="row">
-            <div class="col-md-12">
-              <footer class="section section-primary">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <h1>ITI Cafteria</h1>
-                      <p>All rights reserved to Gorilla's team :)&nbsp;
-                        <br>Zahra - Aya - Hazem</p>
-                    </div>
-                    <div class="col-sm-6">
-                      <p class="text-info text-right">
-                        <br>
-                        <br>
-                      </p>
-                      <div class="row">
-                        <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
-                          <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                        </div>
+            <div class="col-md-8 col-md-offset-2">
+                <div id="orderDetails" class="collapse" style="border: 2px solid black">
+                  <img src="#">
+                  <img src="#">
+                  <img src="#">
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <footer class="section section-primary">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <h1>ITI Cafteria</h1>
+                        <p>All rights reserved to Gorilla's team :)&nbsp;
+                          <br>Zahra - Aya - Hazem</p>
                       </div>
-                      <div class="row">
-                        <div class="col-md-11 hidden-xs text-right">
-                          <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                      <div class="col-sm-6">
+                        <p class="text-info text-right">
+                          <br>
+                          <br>
+                        </p>
+                        <div class="row">
+                          <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
+                            <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-11 hidden-xs text-right">
+                            <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </footer>
+                </footer>
+              </div>
             </div>
           </div>
         </div>
@@ -146,4 +209,4 @@
     </div>
   </body>
 
-</html>	
+</html>

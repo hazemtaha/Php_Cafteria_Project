@@ -4,9 +4,12 @@
   <title>Page 4</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+  <script src="../assets/js/jquery-1.11.2.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 
 </head>
 <body>
@@ -35,26 +38,33 @@
 
 
 <div class="col-sm-4" >
-     <div class="input-group date" data-provide="datepicker">
-       <input type="text" class="form-control">
-     <div class="input-group-addon">
+     <div class="form-group">
+       <label class="control-label" for="from">From
+       <input type="date" class="form-control" name="from">
+       </label>
+     <!-- <div class="input-group-addon">
         <span class="glyphicon glyphicon-th"></span>
-     </div>
+     </div> -->
      </div>
 </div>
 <div class="col-sm-4" >
-     <div class="input-group date" data-provide="datepicker">
-       <input type="text" class="form-control">
-     <div class="input-group-addon">
+     <label class="control-label" for="to">From
+       <input type="date" class="form-control" name="to">
+       </label>
+     <!-- <div class="input-group-addon">
         <span class="glyphicon glyphicon-th"></span>
+     </div> -->
      </div>
-     </div>
-</div>
 
+<div class="col-sm-4" >
+  <button type="button" id="search" class="btn btn-primary">
+  Search
+</button>
+</div>
 <br><br> <br>
 
 <div class="col-sm-12" class="table-responsive">
- <table class="table table-condensed ">
+ <table class="table table-hover bg-success">
     <thead>
       <tr>
         <th>Order Date</th>
@@ -64,55 +74,172 @@
         <th>Action</th>
       </tr>
     </thead>
-    <tbody>
-      <tr class="success">
-        <td>John </td> 
-        <td> <a href="#demo" data-toggle="collapse"> + </a> </td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr class="danger">
-        <td>Mary</td>
-        <td> <a href="#demo" data-toggle="collapse"> + </a> </td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-	<td>mary@example.com</td>
-      </tr>
-      <tr class="success">
-        <td>July</td>
-        <td> <a href="#demo" data-toggle="collapse"> + </a> </td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-        <td>mary@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <tbody id="myOrders">
 
-<div class="col-sm-12">
-  <div id="demo" class="collapse">
-	<img src="pic project/latte.jpeg"/> 
-        <img src="pic project/latte.jpeg"/>
-        <img src="pic project/latte.jpeg"/>
-        <img src="pic project/latte.jpeg"/>
+    <script>
+    $(function(){
+      $('[name = orderDetail]').click(function(e){
+        var oId = $(e.target).parent().next().text();
+        location.href = "my-orders.php?o_id="+oId;
+      });
+      $('#search').click(function(){
+        var fromDate = $('[name = from]').val();
+        var toDate = $('[name = to]').val();
+        $.ajax({
+          url:'../controllers/ordersController.php',
+          method:'POST',
+          data:{
+            'dest':'search',
+            'from':fromDate,
+            'to':toDate
+          },
+          success:function(response) {
+            console.log(response);
+            $('#myOrders').empty();
+            for (var i = 0; i < response.length; i++) {
+              var orderDate = response[i]['date']+" "+response[i]['time'];
+              var status = response[i]['status'];
+              var oId = response[i]['o_id'];
+              var total = response[i]['total_price'];
+              if (status == 'Proccessing') {
+                $('#myOrders').append("<tr><td>"+orderDate+"</td><td id='id"+oId+"'><a href='#'> + </a></td><td>"+status+"</td><td>"+total+"</td><td><a href='#' id='"+oId+"'>Cancel</a></td></tr>");
+                $('#'+oId).click(cancelOrder);          
+              } else {
+                $('#myOrders').append("<tr><td>"+orderDate+"</td><td id='id"+oId+"'><a href='#'> + </a></td><td>"+status+"</td><td>"+total+"</td><td></td></tr>");
+              }
+              $('#id'+oId).click(moreDetails);
+            }
+          },
+          error:function(xmlHttpRequestObj, status, error) {
+            console.log(status);
+          },
+          complete:function(xmlHttpRequestObj) {
+
+          },
+          dataType:'json',
+          async:true
+        });
+      });
+      $.ajax({
+          url:'../controllers/ordersController.php',
+          method:'POST',
+          data:{
+            'dest':'myOrders'
+          },
+          success:function(response) {
+            console.log(response);
+            for (var i = 0; i < response.length; i++) {
+              var orderDate = response[i]['date']+" "+response[i]['time'];
+              var status = response[i]['status'];
+              var oId = response[i]['o_id'];
+              var total = response[i]['total_price'];
+              if (status == 'Proccessing') {
+                $('#myOrders').append("<tr><td>"+orderDate+"</td><td id='id"+oId+"'><a href='#'> + </a></td><td>"+status+"</td><td>"+total+"</td><td><a href='#' id='"+oId+"'>Cancel</a></td></tr>");
+                $('#'+oId).click(cancelOrder);          
+              } else {
+                $('#myOrders').append("<tr><td>"+orderDate+"</td><td id='id"+oId+"'><a href='#'> + </a></td><td>"+status+"</td><td>"+total+"</td><td></td></tr>");
+              }
+              $('#id'+oId).click(moreDetails);
+            }
+          },
+          error:function(xmlHttpRequestObj, status, error) {
+            console.log(status);
+          },
+          complete:function(xmlHttpRequestObj) {
+
+          },
+          dataType:'json',
+          async:true
+        });
+      var isAllHidden = true;
+      var shownOrder;
+      function moreDetails(e) {
+        e.preventDefault();
+        var orderId = $(e.target).parent().attr('id');
+        orderId = orderId.substr(2);
+        console.log(orderId);
+        if (isAllHidden) {
+          $('#orderDetails').show();
+          $(e.target).text('-');
+          shownOrder = orderId;
+          isAllHidden = false;
+          $.ajax({
+            url:"../controllers/ordersController.php",
+            method:"post",
+            data:{
+              "dest":"getOrderDetails",
+              "oId":orderId
+            },
+            success:function(response) {
+              console.log(response);
+              $('#orderDetails').empty();
+              for (var i = 0; i < response.length; i++) {
+                var img = response[i]['p_img'];
+                var pName = response[i]['p_name'];
+                var quantity = response[i]['quantity'];
+                // class='class='col-sm-"+column+"'
+                $('#orderDetails').append("<div style='float:left; width:50 px'><figure><img src='"+img+"' ><figcaption class='text-center'>"+pName+" | "+quantity+"</figcaption></figure></div>");
+              }
+              var totalPrice = $(e.target).parent().next().next().text();
+              $('#orderDetails').append("<div class='row'><div class='col-md-12 text-right'><p>Total: EGP "+totalPrice+"</p></div></div>");
+
+            },
+            error:function(xmlHttpRequestObj,status,error) {
+              console.log(error);
+            },
+            complete:function(xmlHttpRequestObj) {
+              console.log("Complete ");
+            },
+            dataType:"json",
+            async:true
+          });
+        } else if (shownOrder == orderId) {
+          $('#orderDetails').hide();
+          $(e.target).text('+');
+          isAllHidden = true;
+        }
+
+      }
+      function cancelOrder(e) {
+        e.preventDefault();
+        var oId = $(e.target).attr('id');
+        $.ajax({
+          url:'../controllers/ordersController.php',
+          method:'POST',
+          data:{
+            'dest':'cancelOrder',
+            'msg':oId
+          },
+          success:function(response) {
+            $(e.target).remove();
+            console.log(response);
+          },
+          error:function(xmlHttpRequestObj, status, error) {
+            console.log(error);
+          },
+          complete:function(xmlHttpRequestObj) {
+
+          },
+          // dataType:'json',
+          async:true
+        });
+      }
+    });
+    </script>
+    </tbody>
+  </table> 
 </div>
+<div id="orderDetails" class="collapse"></div>
 
 <br> <br> <br>
 
-<div class="col-sm-2">
-   <h3> Total </h3> 
-</div>
-<div class="col-sm-2">
-   <h3> EGP 104 </h3> 
-</div>
 
 <br> <br> <br> <br>
 
 <div class=" row col-sm-12 text-center">
   <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li class="active"><a href="#">2</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li ><a href="#">2</a></li>
     <li><a href="#">3</a></li>
     <li><a href="#">4</a></li>
     <li><a href="#">5</a></li>
