@@ -9,21 +9,21 @@ class Orders
 		$this->dbConnection = $dbCon;
 	}
 	function addOrder() {
-		$orderQuery = "insert into orders values ('','".$_POST['status']."',".$_POST['u_id'].","
-			.$_POST['room_no'].",curdate(),curtime(),'');";
+		$orderQuery = "insert into orders values ('',default(status),".$_POST['u_id'].",".$_POST['room_no'].",curdate(),curtime(),".$_POST['totalPrice'].",".$_POST['notes'].");";
 		$this->dbConnection->query($orderQuery);
-		$products = $_SESSION['products'];
+		$products = json_decode($_POST['products'],true);
 		if ($this->dbConnection->affected_rows > 0) {
-			foreach ($products as $pId => $quantity) {
-				$detailQuery = "insert into orders_details values (".$pId.",last_insert_id(),"
-					.$quantity.",".$quantity."*(select u_price from products where p_id = ".$pId."));";
+			for ($i=0; $i < count($products); $i++) { 
+				$val = true;
+				$detailQuery = "insert into orders_details values (".$products[$i]['productId'].",last_insert_id(),"
+					.$products[$i]['quantity'].",".$products[$i]['total'].");";
 				$this->dbConnection->query($detailQuery);
 			}
 		}
-		$totalPrice = "update orders set total_price = (select sum(total_price) 
-					from orders_details where o_id = last_insert_id());";
-		$this->dbConnection->query($totalPrice);
-		echo $this->dbConnection->error;
+		// $totalPrice = "update orders set total_price = (select sum(total_price) 
+		// 			from orders_details where o_id = last_insert_id());";
+		// $this->dbConnection->query($totalPrice);
+		// echo $this->dbConnection->error;
 		return $this->dbConnection->affected_rows;
 	}	
 	function setOrderStatus($status,$oId) {
