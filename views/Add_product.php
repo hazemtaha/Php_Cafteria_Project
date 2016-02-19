@@ -111,13 +111,13 @@ tr , td{
                              placeholder="Price"   name="u_price" required>
                     </div>
                     <div class="form-group">
-                        <a href="Add_Category.html" class="pull-right">Add Category</a>
+                        <a href="../views/Add_Category.html" class="pull-right">Add Category</a>
                         <label class="control-label" for="category">Category</label>
                         <select name="ctg_id" class="form-control" id="category" required>
                             <option value="" selected="">Select Category</option>
                            <?php
                             require_once "../controllers/DbConnection.php";
-                            require_once "../models/Category.php";
+                            require_once "../controllers/Category.php";
                             $pro = new Category(DbConnection::getConnection("localhost","aya","aya","cafteria"));
 
                             $result = $pro->select_categories();
