@@ -1,25 +1,71 @@
-<html>
-  
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/js/jquery-1.11.2.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <!-- <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
-    rel="stylesheet" type="text/css">
-    <!-- <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
-    rel="stylesheet" type="text/css"> -->
-  </head>
-  
-  <body>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10">
-            <ul class="nav nav-pills">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style >
+        .well{
+            background-color: black;
+        }
+        .col-sm-2{
+
+            padding: 10px;
+        }
+        .shape{
+            border: 1px solid Gainsboro  ;
+        }
+
+
+        .col-sm-4 {
+
+
+            border: 1px solid Gainsboro;
+
+        }
+        tr , td{
+
+            padding: 7px;
+
+
+        }
+        #size{
+
+
+            border: 1px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+
+    <title> Orders </title>
+</head>
+<body style="background-color: snow">
+<nav class="navbar navbar-inverse ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
+
+        </div>
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="#">Cafertaria</a>
+
+        </div>
+           <ul class="nav navbar-nav">
               <li class="active">
                 <a href="#">Home</a>
               </li>
@@ -36,23 +82,23 @@
                 <a href="#">Checks</a>
               </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            
+            <li><a href="#">Islam Asker</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
           </div>
-          <div class="col-md-1" id="userPic">
-            <i class="fa fa-3x fa-fw fa-user pull-left text-muted"></i>
-          </div>
-          <div class="col-md-1 text-center">
-            <p class="lead text-center">Admin
-              <br>
-            </p>
-          </div>
+          </nav>
+          
         </div>
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <h1>Orders</h1>
+          <div class="col-md-12" align="center">
+            <h1 style="color:Salmon ;font-style: oblique;">Orders</h1>
           </div>
         </div>
         <hr>
@@ -61,7 +107,7 @@
             <div class="col-sm-12">
               <table class="table table-hover bg-success" id="orders">
                 <thead>
-                  <tr>
+                  <tr bgcolor="AntiqueWhite ">
                     <th>Order Date</th>
                     <th>User Name</th>
                     <th>Room</th>
@@ -218,48 +264,16 @@
           <div class="col-md-8 col-md-offset-2"></div>
         </div>
       </div>
-      <div class="section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <footer class="section section-primary">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <h1>ITI Cafteria</h1>
-                      <p>All rights reserved to Gorilla's team :)&nbsp;
-                        <br>Zahra - Aya - Hazem</p>
-                    </div>
-                    <div class="col-sm-6">
-                      <p class="text-info text-right">
-                        <br>
-                        <br>
-                      </p>
-                      <div class="row">
-                        <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
-                          <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-11 hidden-xs text-right">
-                          <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                          <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </footer>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <br>
+<br>
+<br>
+<br>
+<br>
+<div class=" row  text-center" background="Black">
+      <div class="well">Insititute of Information and Technology </div>
+</div>
+
+
   </body>
 
 </html>	
