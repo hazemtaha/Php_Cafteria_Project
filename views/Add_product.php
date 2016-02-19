@@ -64,8 +64,6 @@ tr , td{
 
         </div>
         <ul class="nav navbar-nav">
-
-               
                     <li class="active">
                         <a href="#">Home</a>
                     </li>
@@ -89,36 +87,48 @@ tr , td{
             <li><a href="#">Logout</a></li>
         </ul>
             </div>
-           
-       </nav>
-  
-
+            </nav>
+            <br>
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-            <div align="center" style="color:Salmon ;font-style: oblique;"><h1>Add Product</h1>
-                </div>
-                <form role="form" action="../models/sumbit.php" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label class="control-label" >Product</label>
-                        <input class="form-control" id="product" placeholder="Enter Product Name"
-                               type="text" name="p_name" required>
+            <div class="col-md-12" align="center">
+                <h1 tyle="color:Salmon ;font-style: oblique;">Edit Product</h1>
+                 <?php
+                echo '<form role="form" action="../models/editProduct.php?id='.$_GET['id'].'" method="post" enctype="multipart/form-data">';
+                   
+                    echo "<div class='form-group'>";
+                    
+                       require_once "../controllers/DbConnection.php";
+                       require_once "../controllers/Product.php";
+                       $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
+                       $result = $pro->Search_product($_GET['id']);
+                        if ($result->num_rows == 1) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<option value='".$row["ctg_id"]."'>".$row["ctg_name"]."</option>";
+                                   echo "<label class='control-label' >Product</label>";
+                      echo "<input class='form-control' id='product' value='".$row["p_name"]."'
+                               type='text' name='p_name'>";
+                    echo "</div>";
+                    echo "<div class='form-group'>";
+                       echo " <label class='control-label'>Price</label>";
+                       echo "<input class='form-control' id='price' type='number' min='0'
+                               value='".$row["u_price"]."' name='u_price'>";
+                                }
+                            } 
+                       ?>  
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Price</label>
-                        <input class="form-control" id="price" type="number" min="0"
-                             placeholder="Price"   name="u_price" required>
-                    </div>
+                   
                     <div class="form-group">
                         <a href="../views/Add_Category.html" class="pull-right">Add Category</a>
                         <label class="control-label" for="category">Category</label>
-                        <select name="ctg_id" class="form-control" id="category" required>
+                        <select name="ctg_id" class="form-control" id="category" onchange="document.getElementById('selected_text').value=this.options[this.selectedIndex].text">
                             <option value="" selected="">Select Category</option>
                            <?php
                             require_once "../controllers/DbConnection.php";
                             require_once "../controllers/Category.php";
-                            $pro = new Category(DbConnection::getConnection("localhost","root","iti","cafteria"));
+                            $pro = new Category(DbConnection::getConnection("localhost","aya","aya","cafteria"));
 
                             $result = $pro->select_categories();
                            
@@ -131,17 +141,20 @@ tr , td{
                             } else {
                                 echo "0 results";
                             }
-                ?>
-                        </select>
-                    </div>
-                    <div >
-
+               
+                       echo " </select>";
+                   
+                  
+                    ?>
+                   </div>
+                   <div >
                         <label class="control-label">Select Image</label>
-                        <input name="p_img" type="file" class="control-label" id="img" required>
+                        <input name="p_img" type="file" class="control-label" id="img">
 
                     </div>
                     <br/>
-                   
+                    <br/>
+                    <input type="hidden" name="selected_text" id="selected_text" value="" />
                     <button type="submit" class="active btn btn-default btn-lg">Submit</button>
                 </form>
             </div>
@@ -164,14 +177,11 @@ tr , td{
         <div class="row"></div>
     </div>
 </div>
-<br>
-<br>
-<br>
- <div class="footer text-center" background="Black">
+<div class=" row  text-center" background="Black">
       <div class="well">Insititute of Information and Technology </div>
 </div>
+
 
 </body>
 
 </html>
-
