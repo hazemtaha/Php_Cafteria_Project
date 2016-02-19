@@ -101,7 +101,7 @@ tr , td{
                     
                        require_once "../controllers/DbConnection.php";
                        require_once "../controllers/Product.php";
-                       $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
+                       $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
                                 // output data of each row

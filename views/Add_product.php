@@ -118,7 +118,7 @@ tr , td{
                            <?php
                             require_once "../controllers/DbConnection.php";
                             require_once "../controllers/Category.php";
-                            $pro = new Category(DbConnection::getConnection("localhost","aya","aya","cafteria"));
+                            $pro = new Category(DbConnection::getConnection("localhost","root","iti","cafteria"));
 
                             $result = $pro->select_categories();
                            

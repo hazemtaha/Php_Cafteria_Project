@@ -117,7 +117,7 @@ tr , td{
                    echo '<td><a href="../models/Available.php?id='.$row['p_id'].'">available</a></td>';
 
                     echo '<td>
-                          <a href="../models/EditProduct.php?id='.$row['p_id'].'">EDIT</a>
+                          <a href="../views/EditProduct.php?id='.$row['p_id'].'">EDIT</a>
                           <a href="../models/deleteProduct.php?id='.$row['p_id'].'">Delete</a> </td>';
                     echo '<tr>';}
                     else{
