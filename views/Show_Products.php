@@ -100,9 +100,9 @@ tr , td{
         <tbody>
         <?php
 
-        require_once "DbConnection.php";
-        require_once "Product.php";
-        $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
+        require_once "../controllers/DbConnection.php";
+        require_once "../models/Product.php";
+        $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
         $result = $pro->Get_Products();
         if ($result->num_rows > 0) {
             // output data of each row

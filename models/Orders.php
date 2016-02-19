@@ -9,7 +9,7 @@ class Orders
 		$this->dbConnection = $dbCon;
 	}
 	function addOrder() {
-		$orderQuery = "insert into orders values ('',default(status),".$_POST['u_id'].",".$_POST['room_no'].",curdate(),curtime(),".$_POST['totalPrice'].",".$_POST['notes'].");";
+		$orderQuery = "insert into orders values ('',default(status),".$_POST['u_id'].",".$_POST['room_no'].",curdate(),curtime(),".$_POST['totalPrice'].",'".$_POST['notes']."');";
 		$this->dbConnection->query($orderQuery);
 		$products = json_decode($_POST['products'],true);
 		if ($this->dbConnection->affected_rows > 0) {

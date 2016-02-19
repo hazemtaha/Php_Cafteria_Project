@@ -44,7 +44,7 @@ tr , td{
 }
     </style>
 
-    <title>Admin Home</title>
+    <title>User Home</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse ">
@@ -88,7 +88,7 @@ tr , td{
   $(function(){
     $('#confirm').click(function(e) {
       var userId = 3;
-      var notes = $('#notes').text();
+      var notes = $('#notes').val();
       var room = $('#rooms option:selected').text();
       var totalPrice = $('#totalPrice').text();
       var products = [];

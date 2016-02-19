@@ -45,7 +45,9 @@
                 echo json_encode($orders);
                 break;
             case 'addOrder':
-                $orderInterface->addOrder();
+                $affRows = $orderInterface->addOrder();
+
+                echo $affRows;
                 break;
             default:
     			# code...
