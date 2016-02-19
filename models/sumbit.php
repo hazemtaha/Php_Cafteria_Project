@@ -6,10 +6,10 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 $upfile = "$DOCUMENT_ROOT/Project_Php/assets/img/".$_FILES['p_img']['name'] ;
 // Does the file have the right MIME type?
 if ($_FILES['p_img']['type'] != 'image/jpeg' || $_FILES['p_img']['type'] != 'image/png'
-	|| $_FILES['p_img']['type'] != 'image/gif')
+	|| $_FILES['p_img']['type'] != 'image/gif' || $_FILES['p_img']['type'] != 'image/jpg')
 {
-echo 'Problem: file is not plain text';
-exit;
+echo 'Problem: file is not Image';
+
 }
 if (is_uploaded_file($_FILES['p_img']['tmp_name']))
 {
