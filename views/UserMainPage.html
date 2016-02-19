@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="../assets/js/jquery-1.11.2.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+
     <style >
         .well{
             background-color: black;
@@ -38,26 +42,15 @@ tr , td{
 
     border: 1px;
 }
-
-
-
-
-
-
-
-
-
-
-
     </style>
 
-    <title>UserHome Page</title>
+    <title>User Home</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
+            <img src="img/start.jpg" width="50" heigth="50"/>
 
         </div>
         <div class="navbar-header">
@@ -73,9 +66,10 @@ tr , td{
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            <li><img src="img/start.jpg" width="50" height="50"/> </li>
             <li></li>
             <li><a href="#">Islam Asker</a></li>
+            <li><a href="#"></a></li>
         </ul>
     </div>
 </nav>
@@ -84,62 +78,258 @@ tr , td{
 <div class="container">
 <div  class="col-sm-3 col-md-3 pull-right" align="right"> 
     <div class=" input-group">
-            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" width="100" hight="50"/>
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-            </div>
+            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" width="100" hight="50" />
      </div>
 </div>
 <br/>
 <br/>
 <br/>
+<script>
+  // confirm
+  $(function(){
+    $('#confirm').click(function(e) {
+      var userId = 3;
+      var notes = $('#notes').val();
+      var room = $('#rooms option:selected').text();
+      var totalPrice = $('#totalPrice').text();
+      var products = [];
+      $('.productInfo').each(function(index,element){
+        var productId = $(this).attr('id');
+        var quantity = $(this).find('#quantity'+productId).text();
+        var ttlPrice = $(this).find('#price'+productId).text();
+        products.push({"productId":productId,"quantity":quantity,"total":ttlPrice});      
+      });
+      products = JSON.stringify(products);
+      console.log(products);
+      $.ajax({
+        url:"../controllers/ordersController.php",
+        method:"post",
+        data:{
+          "dest":"addOrder",
+          "u_id":userId,
+          "room_no":room,
+          "notes":notes,
+          "totalPrice":totalPrice,
+          "products":products
+        },
+        success:function(response) {
+          console.log(response);
+          $('#choose>tbody').empty();
+          $('#notes').val("")
+          $('#totalPrice').text("0");
+        },
+        error:function(xmlHttpRequestObj,status,error) {
+          console.log(error);
+        },
+        complete:function(xmlHttpRequestObj) {
+          console.log("Complete ");
+        },
+        async:true
+      });
+
+    });
+  });
+  // getting rooms
+  $.ajax({
+    url:"../controllers/productsController.php",
+    method:"post",
+    data:{
+      "dest":"getRooms"
+    },
+    success:function(response) {
+      for (var i = 0; i < response.length; i++) {
+        $('#rooms').append("<option>"+response[i]['room_no']+"</option>");
+      }
+    },
+    error:function(xmlHttpRequestObj,status,error) {
+      console.log(error);
+    },
+    complete:function(xmlHttpRequestObj) {
+      console.log("Complete ");
+    },
+    dataType:"json",
+    async:true
+  });
+  // getting products
+  $.ajax({
+    url:"../controllers/productsController.php",
+    method:"post",
+    data:{
+      "dest":"getProducts"
+    },
+    success:function(response) {
+      console.log(response);
+      for (var i = 0; i < response.length; i++) {
+        var productName = response[i]['p_name'];
+        var productImg = response[i]['p_img'];
+        var productId = response[i]['p_id'];
+        var productPrice = response[i]['u_price'];
+        $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgp"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+        $('#imgp'+productId).click(productClick);
+      }
+    },
+    error:function(xmlHttpRequestObj,status,error) {
+      console.log(error);
+    },
+    complete:function(xmlHttpRequestObj) {
+      console.log("Complete ");
+    },
+    dataType:"json",
+    async:true
+  });
+  // get the latest products
+  $.ajax({
+    url:"../controllers/productsController.php",
+    method:"post",
+    data:{
+      "dest":"getLatestProducts"
+    },
+    success:function(response) {
+      console.log(response);
+      for (var i = 0; i < response.length; i++) {
+        var productName = response[i]['p_name'];
+        var productImg = response[i]['p_img'];
+        var productId = response[i]['p_id'];
+        var productPrice = response[i]['u_price'];
+        $('#latestOrders').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgl"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+        $('#imgl'+productId).click(productClick);
+      }
+    },
+    error:function(xmlHttpRequestObj,status,error) {
+      console.log(error);
+    },
+    complete:function(xmlHttpRequestObj) {
+      console.log("Complete ");
+    },
+    dataType:"json",
+    async:true
+  }); 
+  // search 
+  $('#srch-term').on('input',function(e) {
+  var query = e.target.value;
+    $.ajax({
+      url:"../controllers/productsController.php",
+      method:"post",
+      data:{
+        "dest":"searchProducts",
+        "query":query
+      },
+      success:function(response) {
+        $('#products').empty();
+        console.log(response);
+        for (var i = 0; i < response.length; i++) {
+          var productName = response[i]['p_name'];
+          var productImg = response[i]['p_img'];
+          var productId = response[i]['p_id'];
+          var productPrice = response[i]['u_price'];
+          $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgs"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+          $('#imgs'+productId).click(productClick);
+        }
+      },
+      error:function(xmlHttpRequestObj,status,error) {
+        console.log(error);
+      },
+      complete:function(xmlHttpRequestObj) {
+        console.log("Complete ");
+      },
+      dataType:"json",
+      async:true
+    });
+  });
+  // event handlers
+  function productClick(e) {
+    e.stopPropagation();
+    var productPrice = $(e.target).parent().parent().attr('name');
+    var productName = $(e.target).next().text();
+    var productId = $(e.target).parent().attr('name');
+    var isProductExist = false;
+    if( $('table>tbody>tr>td>label>h4:contains("'+productName+'")').length) {
+      // increment the quantity on multiple product selection
+      var quantity = $('table>tbody>tr>td>label>h4:contains("'+productName+'")').parent().parent().next().children().first().children().first().text();
+      quantity++;
+      $('table>tbody>tr>td>label>h4:contains("'+productName+'")').parent().parent().next().children().first().children().first().text(quantity);
+      // increment the price on multiple product selection
+      var price = $('table>tbody>tr>td>label>h4:contains("'+productName+'")').parent().parent().next().next().next().next().children().first().children().first().attr('name');
+      price*=quantity;
+      $('table>tbody>tr>td>label>h4:contains("'+productName+'")').parent().parent().next().next().next().next().children().first().children().first().text(price);
+      // increment total price 
+      totalPrice = parseInt($('#totalPrice').text());
+      totalPrice+=parseInt(productPrice); 
+      $('#totalPrice').text(totalPrice);
+      
+    } else {
+      $('#choose').append(generateTags(productName,productId,productPrice));
+      $('#increment'+productId).click(incrementQuantity);
+      $('#decrement'+productId).click(decrementQuantity);
+      $('#delete'+productId).click(cancelProduct);
+      // increment total price
+      totalPrice = parseInt($('#totalPrice').text());
+      totalPrice+=parseInt(productPrice);
+      $('#totalPrice').text(totalPrice);
+    }
+  }
+  // product block generator 
+  function generateTags(productName,productId,productPrice) {
+    var tags = "<tr id='"+productId+"' class='productInfo'><td><label><h4 name='pName'>"+productName+"</h4></label></td><td><label><h4 id='quantity"+productId+"'>1</h4></label></td><td><div class='btn-group-vertical'><button type='button' class='btn glyphicon glyphicon-minus' id='decrement"+productId+"'></button><button type='button' class='btn glyphicon glyphicon-plus' id='increment"+productId+"'></button></div></td><td><label><h4>EPG</h4></label></td><td><label><h4 id='price"+productId+"' name='"+productPrice+"'>"+productPrice+"</h4></label></td><td><button type='button' class='btn btn-danger glyphicon glyphicon-remove' id='delete"+productId+"'></button></td><br/></tr>";
+    return tags;
+  }
+  function cancelProduct(e) {
+    e.stopPropagation();
+    var pId = $(e.target).attr('id');
+    var productId = pId.substring(6); 
+    var productTotal = parseInt($('#price'+productId).text()); 
+    var total = parseInt($('#totalPrice').text());
+    $('#totalPrice').text((total-productTotal));
+    $(e.target).parent().parent().empty();
+  }
+  function incrementQuantity(e) {
+    e.stopPropagation();
+    var pId = $(e.target).attr('id');
+    var productId = pId.substring(9);
+    var quantity = $('#quantity'+productId).text();
+    quantity++;
+    $('#quantity'+productId).text(quantity);
+      // increment the price on multiple product selection
+      var price = $('#price'+productId).attr('name');
+      price*=quantity;
+      $('#price'+productId).text(price);
+      // increment total price 
+      totalPrice = parseInt($('#totalPrice').text());
+      totalPrice+=(parseInt(price))/(parseInt(quantity))
+      $('#totalPrice').text(totalPrice);
+    }
+  function decrementQuantity(e) {
+    e.stopPropagation();
+    var pId = $(e.target).attr('id');
+    var productId = pId.substring(9);
+    var quantity = $('#quantity'+productId).text();
+    if (quantity > 1 ) {
+      quantity--;
+      $('#quantity'+productId).text(quantity);
+      // increment the price on multiple product selection
+      var price = $('#price'+productId).attr('name');
+      price*=quantity;
+      $('#price'+productId).text(price);
+      // decrement total price
+      totalPrice = parseInt($('#totalPrice').text());
+      console.log(totalPrice);
+      totalPrice-=(parseInt(price))/(parseInt(quantity));
+      $('#totalPrice').text(totalPrice);
+    }
+  }
+
+</script>
 <!-- Mains Div-->
-<div class="col-sm-4 col-md-4 " id="choose">
-<table  padding="5" align="center">
-<tr>
-        <td><label><h4>Tea</h4></label></td>
-        <td><label id="size1"><h4>5</h4></label></td>
-        <td>
-             <div class="btn-group-vertical">
-              <button type="button" class="btn " ><span class="glyphicon glyphicon-minus" ></span></button>
-              <button type="button" class="btn " ><span class="glyphicon glyphicon-plus"></span></button>
-             
-            </div>
-       </td>
-        <td><label><h4>EPG</h4></label></td>
-        <td><label><h4>15</h4></label></td>
-        <td><button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span></button></td>
-<br/>
+<div class="col-sm-5 col-md-5 " >
+<table  padding="5" align="center" id="choose">
 
-
-
-
-
-
-
-</tr>
-<tr>
-    <td><label><h4>Tea</h4></label></td>
-        <td><label id="size"><h4>5</h4></label></td>
-        <td>
-             <div class="btn-group-vertical">
-              <button type="button" class="btn " ><span class="glyphicon glyphicon-minus" ></span></button>
-              <button type="button" class="btn " ><span class="glyphicon glyphicon-plus"></span></button>
-             
-            </div>
-       </td>
-        <td><label><h4>EPG</h4></label></td>
-        <td><label><h4>15</h4></label></td>
-        <td><button type="button" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span></button></td>
-<br/>
-</tr>
     
 
 
 </table>
 <div align="center">
 <h4 align="left">Notes</h4>
-<textarea rows="4" cols="30"></textarea>
+<textarea rows="4" cols="30" id="notes"></textarea>
 <br/>
 </div>
 <div class="row" align="center">
@@ -150,11 +340,7 @@ tr , td{
 
 <div class="form-group col-sm-7">
 
-  <select class="form-control" id="sel1">
-    <option>177</option>
-    <option>2jjj</option>
-    <option>3899</option>
-    <option>4999</option>
+  <select class="form-control" id="rooms">
   </select>
 </div>
 
@@ -164,9 +350,9 @@ tr , td{
 <hr/>
 <div align="right">
 <label><h4>EGP</h4></label>
-<label><h4>125</h4></label>
+<label><h4 id='totalPrice'>0</h4></label>
 <br/>
-<button class="btn btn-primary"  >Confirm</button>
+<button class="btn btn-primary" id="confirm">Confirm</button>
 <br/>
 <br/>
 
@@ -183,151 +369,14 @@ tr , td{
        
     <label><h4>Latest Order</h4></label>
     <div class="Container">
-    <div class="row">
-     <div class="col-sm-3 text-center">
-            <figure class="shape">
-                
-                 <img src="img/tea.jpg" alt="" width="100" height="100">
-                 <figcaption>Tea</figcaption>
-                  
-                  
+    <div class="row" id="latestOrders">
 
-            </figure>
-        </div>
-        
-         <div class="col-sm-3 text-center">
-            <figure class="shape">
-                
-                 <img src="img/tea.jpg" alt="" width="100" height="100">
-                 <figcaption>Tea</figcaption>
-                  
-                  
-
-            </figure>
-          </div>
-
-          </div>
+    </div>
            <hr align="center" size="1">
-
-    
-
-
    </div>
    </div>
-  
+<div id="products">
 
-<div class="container">
-<div class="row">
- <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-    </div>
-    
-     <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-      </div>
-      <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-      </div>
-      </div>
-      <div class="row">
-      <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-    </div>
-
-    
-     <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-      </div>
-      <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-      </div>
-          
-
-
-
-
-      </div>
-       <div class="row">
-      <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-    </div>
-
-    
-     <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-      </div>
-      <div class="col-sm-2 text-center">
-        <figure class="shape">
-            
-             <img src="img/tea.jpg" alt="" width="100" height="100">
-             <figcaption>Tea</figcaption>
-              
-              
-
-        </figure>
-      </div>
-          
-
-
-
-
-      </div>
     
 </div>
 
@@ -358,7 +407,6 @@ tr , td{
 <br/>
  <div class="footer text-center" background="Black">
       <div class="well">Insititute of Information and Technology </div>
-     </div>
 
 
 </body>
