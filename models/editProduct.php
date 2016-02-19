@@ -1,14 +1,15 @@
 <?php
-  require_once "DbConnection.php";
-  require_once "Product.php";
+  require_once "../controllers/DbConnection.php";
+  require_once "../controllers/Product.php";
   $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
   $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
-$upfile = "$DOCUMENT_ROOT/Project_Php/img/".$_FILES['p_img']['name'] ;
+$upfile = "$DOCUMENT_ROOT/Project_Php/assets/img/".$_FILES['p_img']['name'] ;
 // Does the file have the right MIME type?
-if ($_FILES['p_img']['type'] != 'image/jpeg')
+if ($_FILES['p_img']['type'] != 'image/jpeg'|| $_FILES['p_img']['type'] != 'image/png'
+	|| $_FILES['p_img']['type'] != 'image/gif')
 {
-echo 'Problem: file is not plain text';
-exit;
+ header("Location: ../views/EditProduct.php");
+
 }
 if (is_uploaded_file($_FILES['p_img']['tmp_name']))
 {
@@ -25,7 +26,6 @@ echo $_FILES['p_img']['name'];
 //echo 'File uploaded successfully<br><br>';
 }
   $result = $pro->update_product($_GET["id"],$_POST["p_name"],$_POST["u_price"],$_POST["ctg_id"],$_FILES['p_img']['name']);
-header("Location: Show_Products.php");
-  var_dump($result);
-
+header("Location: ../views/Show_Products.php");
+  
 ?>
