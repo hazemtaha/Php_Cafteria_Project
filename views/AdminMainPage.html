@@ -110,7 +110,6 @@ tr , td{
         products.push({"productId":productId,"quantity":quantity,"total":ttlPrice});      
       });
       products = JSON.stringify(products);
-      console.log(products);
       $.ajax({
         url:"../controllers/ordersController.php",
         method:"post",

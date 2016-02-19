@@ -267,6 +267,7 @@ tr , td{
       $('#totalPrice').text(totalPrice);
     }
   }
+  // product block generator 
   function generateTags(productName,productId,productPrice) {
     var tags = "<tr id='"+productId+"' class='productInfo'><td><label><h4 name='pName'>"+productName+"</h4></label></td><td><label><h4 id='quantity"+productId+"'>1</h4></label></td><td><div class='btn-group-vertical'><button type='button' class='btn glyphicon glyphicon-minus' id='decrement"+productId+"'></button><button type='button' class='btn glyphicon glyphicon-plus' id='increment"+productId+"'></button></div></td><td><label><h4>EPG</h4></label></td><td><label><h4 id='price"+productId+"' name='"+productPrice+"'>"+productPrice+"</h4></label></td><td><button type='button' class='btn btn-danger glyphicon glyphicon-remove' id='delete"+productId+"'></button></td><br/></tr>";
     return tags;

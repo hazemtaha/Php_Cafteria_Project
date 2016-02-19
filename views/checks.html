@@ -45,6 +45,126 @@
         </div>
       </div>
     </div>
+    <script>
+    // get users total
+      $.ajax({
+        url:"../controllers/usersController.php",
+        method:"post",
+        data:{
+          "dest":"getUsersTotal"
+        },
+        success:function(response) {
+          for (var i = 0; i < response.length; i++) {
+            $('#usersTotl').append("<tr><td><a href='#' id='showOrders"
+              +response[i]['u_id']+"'> + </a> "+response[i]['u_name']+
+              "</td><td>"+response[i]['user_total']+"</td></tr>");
+            $('#showOrders'+response[i]['u_id']).click(showOrders);
+          }
+          console.log(response);
+        },
+        error:function(xmlHttpRequestObj,status,error) {
+          console.log(status);
+        },
+        complete:function(xmlHttpRequestObj) {
+          console.log("Complete ");
+        },
+        dataType:"json",
+        async:true
+      });
+      var isAllHidden = true;
+      var shownUser;
+      function showOrders(e) {
+        e.preventDefault();
+        var userId = $(e.target).attr('id');
+        userId = userId.substr(10);
+        if (isAllHidden) {
+          $('#orders').show();
+          $(e.target).text(" - ");
+          isAllHidden = false;
+          shownUser = userId;
+          // get specific user orders
+          $.ajax({
+            url:"../controllers/ordersController.php",
+            method:"post",
+            data:{
+              "dest":"getOrdersByUser",
+              "u_id":userId
+            },
+            success:function(response) {
+              console.log(response);
+              $('#userOrders').empty();
+              for (var i = 0; i < response.length; i++) {
+                $('#userOrders').append("<tr><td><a href='#' id='showDetails"
+                  +response[i]['o_id']+"'> + </a> "+response[i]['date']+" "
+                  +response[i]['time']+"</td><td>"+response[i]['total_price']
+                  +"</td></tr>");
+                $('#showDetails'+response[i]['o_id']).click(showDetails);
+              }
+            },
+            error:function(xmlHttpRequestObj,status,error) {
+              console.log(error);
+            },
+            complete:function(xmlHttpRequestObj) {
+              console.log("Complete ");
+            },
+            dataType:"json",
+            async:true
+          });
+
+        } else if (shownUser == userId) {
+          $('#orders').hide();
+          $('#orderDetails').hide();
+          isAllHidden = true;
+          isAllOrdersHidden = true;
+          $(e.target).text(" + ");
+        }
+      }
+      var shownOrder;
+      var isAllOrdersHidden = true;
+      function showDetails(e) {
+        e.preventDefault();
+        var orderId = $(e.target).attr('id');
+        orderId= orderId.substr(11);
+        if (isAllOrdersHidden) {
+          $('#orderDetails').show();
+          $(e.target).text(" - ");
+          isAllOrdersHidden = false;
+          shownOrder = orderId;
+          // get specific user orders
+          $.ajax({
+            url:"../controllers/ordersController.php",
+            method:"post",
+            data:{
+              "dest":"getOrderDetails",
+              "oId":orderId
+            },
+            success:function(response) {
+              console.log(response);
+              $('#orderDetails').empty();
+              for (var i = 0; i < response.length; i++) {
+                var img = response[i]['p_img'];
+                var pName = response[i]['p_name'];
+                var quantity = response[i]['quantity'];
+                $('#orderDetails').append("<div style='float:left; width:10 px'><figure><img src='"+img+"' ><figcaption class='text-center'>"+pName+" | "+quantity+"</figcaption></figure></div>");
+              }
+            },
+            error:function(xmlHttpRequestObj,status,error) {
+              console.log(error);
+            },
+            complete:function(xmlHttpRequestObj) {
+              console.log("Complete ");
+            },
+            dataType:"json",
+            async:true
+          });
+
+        } else if (shownOrder == orderId) {
+          $('#orderDetails').hide();
+          isAllOrdersHidden = true;
+          $(e.target).text(" + ");
+        }
+      }
+    </script>
     <div class="section">
       <div class="container">
         <div class="row">
@@ -95,22 +215,8 @@
                     <th>Total</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a href="#orders" data-toggle="collapse"> + </a>John</td>
-                    <td>115</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orders" data-toggle="collapse"> + </a>Mary</td>
-                    <td>225</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orders" data-toggle="collapse"> + </a>July</td>
-                    <td>332</td>
-                  </tr>
+                <tbody id="usersTotl">
+
                 </tbody>
               </table>
             </div>
@@ -122,30 +228,17 @@
       <div class="container">
         <div class="row">
           <div class="col-md-offset-1 col-md-10">
-            <div id="orders" class="collapse">
+            <div class="collapse" id="orders">
               <table class="table table-hover bg-success">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Total</th>
+                    <th>Order Date</th>
+                    <th>Amount</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a href="#orderDetails" data-toggle="collapse"> + </a>John</td>
-                    <td>115</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orderDetails" data-toggle="collapse"> + </a>Mary</td>
-                    <td>225</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orderDetails" data-toggle="collapse"> + </a>July</td>
-                    <td>332</td>
-                  </tr>
+                <tbody id="userOrders">
+
+                  
                 </tbody>
               </table>
             </div>
@@ -156,10 +249,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div id="orderDetails" class="collapse" style="border: 2px solid black">
-                  <img src="#">
-                  <img src="#">
-                  <img src="#">
+                <div id="orderDetails" class="collapse">
                 </div>
             </div>
           </div>

@@ -49,6 +49,14 @@
 
                 echo $affRows;
                 break;
+            case 'getOrdersByUser':
+                $ordersRowSet = $orderInterface->getOrdersByUser();
+                $orders = array();
+                while ($order = $ordersRowSet->fetch_assoc()) {
+                    array_push($orders, $order);
+                }
+                echo json_encode($orders);
+                break;
             default:
     			# code...
     			break;

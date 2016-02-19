@@ -103,7 +103,7 @@ tr , td{
 
         require_once "../controllers/DbConnection.php";
         require_once "../controllers/Product.php";
-        $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
+        $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
         $result = $pro->Get_Products();
         if ($result->num_rows > 0) {
             // output data of each row

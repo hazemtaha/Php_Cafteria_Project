@@ -46,7 +46,7 @@ class Orders
 		return $result;
 	}
 	function getOrdersByUser() {
-		$query = "select * from orders where u_id = ".$_POST['u_id'];
+		$query = "select * from orders where u_id = ".$_POST['u_id']." and status != 'canceled';";
 		$result = $this->dbConnection->query($query);
 		return $result;	
 	}
