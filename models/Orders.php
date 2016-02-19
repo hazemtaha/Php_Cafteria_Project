@@ -33,7 +33,7 @@ class Orders
 	}
 	function getOrderDetails($oId) {
 		$query = "select products.*, orders_details.* from products,orders_details 
-			where products.p_id = orders_details.p_id and orders_details.o_id =".$oId." ".$optQString.";";
+			where products.p_id = orders_details.p_id and orders_details.o_id =".$oId.";";
 		$result = $this->dbConnection->query($query);
 		return $result;
 	}

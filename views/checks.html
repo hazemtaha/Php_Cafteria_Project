@@ -181,6 +181,10 @@
             },
             success:function(response) {
               $('#usersTotl').empty();
+              $('#orders').hide();
+              $('#orderDetails').hide();
+              isAllHidden = true;
+              isAllOrdersHidden = true;
               optQString = "and orders.date between '"+fromDate+"' and '"+toDate+"'";
               for (var i = 0; i < response.length; i++) {
                 $('#usersTotl').append("<tr><td><a href='#' id='showOrders"

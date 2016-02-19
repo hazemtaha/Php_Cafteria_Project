@@ -50,7 +50,7 @@
                 echo $affRows;
                 break;
             case 'getOrdersByUser':
-                $ordersRowSet = $orderInterface->getOrdersByUser();
+                $ordersRowSet = $orderInterface->getOrdersByUser($_POST['optQ']);
                 $orders = array();
                 while ($order = $ordersRowSet->fetch_assoc()) {
                     array_push($orders, $order);
