@@ -27,16 +27,6 @@
   }
 
 
-.col-sm-4 {
-
-
-     border: 1px solid Gainsboro;
-
-}
-tr , td{
-
-  padding: 7px;
-
 
 }
 
@@ -49,7 +39,7 @@ tr , td{
 
     </style>
 
-    <title>Show Products</title>
+    <title>My Orders</title>
 </head>
 <body  style="background-color:Snow ">
 <nav class="navbar navbar-inverse ">
@@ -63,28 +53,25 @@ tr , td{
             <a class="navbar-brand" href="#">Cafertaria</a>
 
         </div>
-       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">My Orders</a></li>
-      </ul>
-       <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">My Orders</a></li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
             <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
             
             <li><a href="#">Islam Asker</a></li>
             <li><a href="#">Logout</a></li>
     </div>
-  </nav>
+</nav>
+<br/>
 
-
-<br> <br> <br> 
-
-<div class="col-sm-12" align="center">   
-    <h1 style="color:Salmon ;font-style: oblique;"> My Orders </h1>
-</div>
-
-<br> <br> <br> <br>
-
-
+<div class="row">
+<div class="col-sm-1"></div> 
+<div class="col-sm-10">
+<div align="center"><h1 style="color:Salmon ;font-style: oblique;"> My Orders</h1></div>
+<br>
 <div class="col-sm-4" >
      <div class="form-group">
        <label class="control-label" for="from">From
@@ -109,11 +96,10 @@ tr , td{
   Search
 </button>
 </div>
-<br><br> <br>
+<br>
 
-<div class="col-sm-12" class="table-responsive">
- <table class="table table-hover bg-success">
-    <thead>
+    <table class="table table-condensed table-hover" align="center">
+         <thead>
       <tr>
         <th>Order Date</th>
         <th> </th>
@@ -123,6 +109,7 @@ tr , td{
       </tr>
     </thead>
     <tbody id="myOrders">
+    
 
     <script>
     $(function(){
@@ -275,27 +262,23 @@ tr , td{
     });
     </script>
     </tbody>
-  </table> 
+        </table>
 </div>
-<div id="orderDetails" class="collapse"></div>
+<div class="col-sm-1"></div>
 
-<br> <br> <br>
+</div>
 
-
-<br> <br> <br> <br>
-
+ </div>   
 <div class=" row col-sm-12 text-center">
-  <ul class="pagination">
-    <li class="active"><a href="#">1</a></li>
-    <li ><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul>
+        <ul class="pagination">
+            <li><a href="#">1</a></li>
+            <li class="active"><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+        </ul>
  </div>
 
-  </div>
-</div>
 <br>
 <br>
 <br>
@@ -306,5 +289,10 @@ tr , td{
 </div>
 
 
+
+
+ 
+ 
 </body>
-</html> 
+
+</html>

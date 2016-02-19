@@ -20,6 +20,15 @@
                 }
                 echo json_encode($usersTotal);
                 break;
+            case 'getChecksRange':
+                $usersTotalSet = $usersInterface->query("select users.u_id,users.u_name,sum(orders.total_price) as user_total from users,orders where users.u_id = orders.u_id and orders.status != 'canceled' and orders.date between '".$_POST['from']."' and 
+                    '".$_POST['to']."' group by users.u_name order by user_total desc");
+                $usersTotal = array();
+                while ($userTotal = $usersTotalSet->fetch_assoc()) {
+                    array_push($usersTotal, $userTotal);
+                }
+                echo json_encode($usersTotal);
+                break;
             default:
     			# code...
     			break;

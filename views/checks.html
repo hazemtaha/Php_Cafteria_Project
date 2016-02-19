@@ -73,6 +73,7 @@
       });
       var isAllHidden = true;
       var shownUser;
+      var optQString="";
       function showOrders(e) {
         e.preventDefault();
         var userId = $(e.target).attr('id');
@@ -88,6 +89,7 @@
             method:"post",
             data:{
               "dest":"getOrdersByUser",
+              "optQ":optQString,
               "u_id":userId
             },
             success:function(response) {
@@ -164,31 +166,41 @@
           $(e.target).text(" + ");
         }
       }
-      $('#search').click(function(){
-        var fromDate = $('[name = from]').val();
-        var toDate = $('[name = to]').val();
-        $.ajax({
-          url:'../controllers/ordersController.php',
-          method:'POST',
-          data:{
-            'dest':'search',
-            'from':fromDate,
-            'to':toDate
-          },
-          success:function(response) {
+      $(function(){
+        $('#search').click(function(){
+          console.log('Search');
+          var fromDate = $('[name = from]').val();
+          var toDate = $('[name = to]').val();
+          $.ajax({
+            url:'../controllers/usersController.php',
+            method:'POST',
+            data:{
+              'dest':'getChecksRange',
+              'from':fromDate,
+              'to':toDate
+            },
+            success:function(response) {
+              $('#usersTotl').empty();
+              optQString = "and orders.date between '"+fromDate+"' and '"+toDate+"'";
+              for (var i = 0; i < response.length; i++) {
+                $('#usersTotl').append("<tr><td><a href='#' id='showOrders"
+                  +response[i]['u_id']+"'> + </a> "+response[i]['u_name']+
+                  "</td><td>"+response[i]['user_total']+"</td></tr>");
+                $('#showOrders'+response[i]['u_id']).click(showOrders);
+              }
 
-          },
-          error:function(xmlHttpRequestObj, status, error) {
-            console.log(status);
-          },
-          complete:function(xmlHttpRequestObj) {
+            },
+            error:function(xmlHttpRequestObj, status, error) {
+              console.log(status);
+            },
+            complete:function(xmlHttpRequestObj) {
 
-          },
-          dataType:'json',
-          async:true
+            },
+            dataType:'json',
+            async:true
+          });
         });
       });
-
     </script>
     <div class="section">
       <div class="container">

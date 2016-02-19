@@ -33,7 +33,7 @@ class Orders
 	}
 	function getOrderDetails($oId) {
 		$query = "select products.*, orders_details.* from products,orders_details 
-			where products.p_id = orders_details.p_id and orders_details.o_id =".$oId.";";
+			where products.p_id = orders_details.p_id and orders_details.o_id =".$oId." ".$optQString.";";
 		$result = $this->dbConnection->query($query);
 		return $result;
 	}
@@ -45,8 +45,11 @@ class Orders
 		$result = $this->dbConnection->query($query);
 		return $result;
 	}
-	function getOrdersByUser() {
-		$query = "select * from orders where u_id = ".$_POST['u_id']." and status != 'canceled';";
+	function getOrdersByUser($optQString) {
+		if (!isset($optQString)) {
+			$optQString = "";
+		}
+		$query = "select * from orders where u_id = ".$_POST['u_id']." and status != 'canceled' ".$optQString.";";
 		$result = $this->dbConnection->query($query);
 		return $result;	
 	}
