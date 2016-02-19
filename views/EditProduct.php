@@ -101,7 +101,7 @@ tr , td{
                     echo "<div class='form-group'>";
                     
                        require_once "../controllers/DbConnection.php";
-                       require_once "../controllers/Product.php";
+                       require_once "../controllers/Category.php";
                        $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
