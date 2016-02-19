@@ -93,7 +93,7 @@ tr , td{
     <div class="container">
         <div class="row">
             <div class="col-md-12" align="center">
-                <h1 tyle="color:Salmon ;font-style: oblique;">Edit Product</h1>
+                <h1 style="color:Salmon ;font-style: oblique;">Edit Product</h1>
                  <?php
                 echo '<form role="form" action="../models/editProduct.php?id='.$_GET['id'].'" method="post" enctype="multipart/form-data">';
                    
