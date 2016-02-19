@@ -59,7 +59,7 @@ tr , td{
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="img/start.jpg" width="50" heigth="50"/>
+            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
 
         </div>
         <div class="navbar-header">
@@ -77,9 +77,10 @@ tr , td{
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="img/start.jpg" width="50" height="50"/> </li>
+            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
             <li></li>
             <li><a href="#">Islam Asker</a></li>
+            <li><a href="#">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -110,6 +111,7 @@ tr , td{
         products.push({"productId":productId,"quantity":quantity,"total":ttlPrice});      
       });
       products = JSON.stringify(products);
+      console.log(products);
       $.ajax({
         url:"../controllers/ordersController.php",
         method:"post",
