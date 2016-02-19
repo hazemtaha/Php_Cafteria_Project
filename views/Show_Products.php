@@ -55,7 +55,7 @@ tr , td{
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="img/start.jpg" width="50" heigth="50"/>
+            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
 
         </div>
         <div class="navbar-header">
@@ -73,9 +73,10 @@ tr , td{
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="img/start.jpg" width="50" height="50"/> </li>
-            <li></li>
+            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            
             <li><a href="#">Islam Asker</a></li>
+            <li><a href="#">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -101,8 +102,8 @@ tr , td{
         <?php
 
         require_once "../controllers/DbConnection.php";
-        require_once "../models/Product.php";
-        $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+        require_once "../controllers/Product.php";
+        $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
         $result = $pro->Get_Products();
         if ($result->num_rows > 0) {
             // output data of each row
@@ -112,24 +113,24 @@ tr , td{
                     echo '<td>'.$row['p_name'].'</td>';
                     echo '<td>'.$row['u_price'].'</td>';
 
-                   echo "<td><img src='img/".$row['p_img']."' width='30' height='30'></td>";
-                   echo '<td><a href="Available.php?id='.$row['p_id'].'">available</a></td>';
+                   echo "<td><img src='../assets/img/".$row['p_img']."' width='30' height='30'></td>";
+                   echo '<td><a href="../models/Available.php?id='.$row['p_id'].'">available</a></td>';
 
                     echo '<td>
-                          <a href="EditProduct.php?id='.$row['p_id'].'">EDIT</a>
-                          <a href="deleteProduct.php?id='.$row['p_id'].'">Delete</a> </td>';
+                          <a href="../models/EditProduct.php?id='.$row['p_id'].'">EDIT</a>
+                          <a href="../models/deleteProduct.php?id='.$row['p_id'].'">Delete</a> </td>';
                     echo '<tr>';}
                     else{
                          echo '<tr>';
                     echo '<td>'.$row['p_name'].'</td>';
                     echo '<td>'.$row['u_price'].'</td>';
 
-                   echo "<td><img src='img/".$row['p_img']."' width='30' height='30'></td>";
-                    echo '<td><a href="Available.php?id='.$row['p_id'].'">unavailable</a></td>';
+                   echo "<td><img src='../assets/img/".$row['p_img']."' width='30' height='30'></td>";
+                    echo '<td><a href="../models/Available.php?id='.$row['p_id'].'">unavailable</a></td>';
 
                     echo '<td>
-                          <a href="EditProduct.php?id='.$row['p_id'].'">EDIT</a>
-                          <a href="deleteProduct.php?id='.$row['p_id'].'">Delete</a> </td>';
+                          <a href="../views/EditProduct.php?id='.$row['p_id'].'">EDIT</a>
+                          <a href="../models/deleteProduct.php?id='.$row['p_id'].'">Delete</a> </td>';
                     echo '<tr>';
                           
 
