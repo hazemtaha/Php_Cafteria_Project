@@ -65,12 +65,12 @@
             <div class="col-md-12">
                 <h1>Edit Product</h1>
                  <?php
-                echo '<form role="form" action="editProduct.php?id='.$_GET['id'].'" method="post" enctype="multipart/form-data">';
+                echo '<form role="form" action="../models/editProduct.php?id='.$_GET['id'].'" method="post" enctype="multipart/form-data">';
                    
                     echo "<div class='form-group'>";
                     
-                       require_once "DbConnection.php";
-                       require_once "Product.php";
+                       require_once "../controllers/DbConnection.php";
+                       require_once "../controllers/Product.php";
                        $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
@@ -91,13 +91,13 @@
                     </div>
                    
                     <div class="form-group">
-                        <a href="Add_Category.html" class="pull-right">Add Category</a>
+                        <a href="../views/Add_Category.html" class="pull-right">Add Category</a>
                         <label class="control-label" for="category">Category</label>
                         <select name="ctg_id" class="form-control" id="category" onchange="document.getElementById('selected_text').value=this.options[this.selectedIndex].text">
                             <option value="" selected="">Select Category</option>
                            <?php
-                            require_once "DbConnection.php";
-                            require_once "Category.php";
+                            require_once "../controllers/DbConnection.php";
+                            require_once "../controllers/Category.php";
                             $pro = new Category(DbConnection::getConnection("localhost","aya","aya","cafteria"));
 
                             $result = $pro->select_categories();
