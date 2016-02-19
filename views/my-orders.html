@@ -25,6 +25,12 @@
 
 
   }
+  tr , td{
+
+  padding: 7px;
+
+
+}
 
 
 
@@ -72,7 +78,10 @@
 <div class="col-sm-10">
 <div align="center"><h1 style="color:Salmon ;font-style: oblique;"> My Orders</h1></div>
 <br>
-<div class="col-sm-4" >
+<table align="center" width="100" height="100" class="col-sm-12">
+<tr>
+<td>
+<div class="col-sm-6" >
      <div class="form-group">
        <label class="control-label" for="from">From
        <input type="date" class="form-control" name="from">
@@ -81,8 +90,11 @@
         <span class="glyphicon glyphicon-th"></span>
      </div> -->
      </div>
+
 </div>
-<div class="col-sm-4" >
+</td>
+<td >
+<div class="col-sm-6" >
      <label class="control-label" for="to">From
        <input type="date" class="form-control" name="to">
        </label>
@@ -90,17 +102,21 @@
         <span class="glyphicon glyphicon-th"></span>
      </div> -->
      </div>
-
-<div class="col-sm-4" >
+</td>
+<td>
+<div class="col-sm-2 text-center"  align="center">
   <button type="button" id="search" class="btn btn-primary">
   Search
 </button>
 </div>
+</td>
+<tr>
+</table>
 <br>
 
     <table class="table table-condensed table-hover" align="center">
          <thead>
-      <tr>
+      <tr bgcolor="AntiqueWhite ">
         <th>Order Date</th>
         <th> </th>
         <th>Status</th>
@@ -109,7 +125,7 @@
       </tr>
     </thead>
     <tbody id="myOrders">
-    
+
 
     <script>
     $(function(){
@@ -264,6 +280,7 @@
     </tbody>
         </table>
 </div>
+<div id="orderDetails" class="collapse"></div>
 <div class="col-sm-1"></div>
 
 </div>
