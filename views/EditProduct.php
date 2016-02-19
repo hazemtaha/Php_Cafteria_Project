@@ -1,36 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>
-    </title>
-    <head>
-
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    </head>
-<script>
 
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style >
+        .well{
+            background-color: black;
+        }
+        .col-sm-2{
+
+            padding: 10px;
+ }
+        .shape{
+            border: 1px solid Gainsboro  ;
+  }
+  table{
+
+      
 
 
+  }
 
 
+.col-sm-4 {
 
 
+     border: 1px solid Gainsboro;
+
+}
+tr , td{
+
+  padding: 7px;
 
 
+}
 
-</script>
-<body>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-                <ul class="nav nav-pills">
+#size{
+
+
+    border: 1px;
+}
+
+
+    </style>
+
+    <title>Show Products</title>
+</head>
+<body  style="background-color:Snow ">
+<nav class="navbar navbar-inverse ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
+
+        </div>
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="#">Cafertaria</a>
+
+        </div>
+        <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="#">Home</a>
                     </li>
@@ -47,23 +80,20 @@
                         <a href="#">Checks</a>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            
+            <li><a href="#">Islam Asker</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
             </div>
-            <div class="col-md-1" id="userPic">
-                <i class="fa fa-3x fa-fw fa-user pull-left text-muted"></i>
-            </div>
-            <div class="col-md-1 text-center">
-                <p class="lead text-center">Admin
-                    <br>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+            </nav>
+            <br>
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1>Edit Product</h1>
+            <div class="col-md-12" align="center">
+                <h1 tyle="color:Salmon ;font-style: oblique;">Edit Product</h1>
                  <?php
                 echo '<form role="form" action="../models/editProduct.php?id='.$_GET['id'].'" method="post" enctype="multipart/form-data">';
                    
@@ -71,7 +101,7 @@
                     
                        require_once "../controllers/DbConnection.php";
                        require_once "../controllers/Product.php";
-                       $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+                       $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
                                 // output data of each row
@@ -147,47 +177,10 @@
         <div class="row"></div>
     </div>
 </div>
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <footer class="section section-primary">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h1>ITI Cafteria</h1>
-                                <p>All rights reserved to Gorilla's team :)&nbsp;
-                                    <br>Zahra - Aya - Hazem</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-info text-right">
-                                    <br>
-                                    <br>
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-11 hidden-xs text-right">
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                                        <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-    </div>
+<div class=" row  text-center" background="Black">
+      <div class="well">Insititute of Information and Technology </div>
 </div>
+
 
 </body>
 
