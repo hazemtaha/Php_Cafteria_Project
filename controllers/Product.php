@@ -25,7 +25,7 @@ private $dbConnection;
 
         if ($this->dbConnection->query($sql) === TRUE) {
              
-          header("location: add_product.html");
+          header("location: ../views/Add_product.php");
 
         } else {
             echo "Error: " . $sql . "<br>" . $this->dbConnection->query($sql)->error;

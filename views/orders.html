@@ -1,22 +1,71 @@
-<html>
-  
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
-    rel="stylesheet" type="text/css">
-    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
-    rel="stylesheet" type="text/css">
-  </head>
-  
-  <body>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10">
-            <ul class="nav nav-pills">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style >
+        .well{
+            background-color: black;
+        }
+        .col-sm-2{
+
+            padding: 10px;
+        }
+        .shape{
+            border: 1px solid Gainsboro  ;
+        }
+
+
+        .col-sm-4 {
+
+
+            border: 1px solid Gainsboro;
+
+        }
+        tr , td{
+
+            padding: 7px;
+
+
+        }
+        #size{
+
+
+            border: 1px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+
+    <title> Orders </title>
+</head>
+<body style="background-color: snow">
+<nav class="navbar navbar-inverse ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
+
+        </div>
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="#">Cafertaria</a>
+
+        </div>
+           <ul class="nav navbar-nav">
               <li class="active">
                 <a href="#">Home</a>
               </li>
@@ -33,180 +82,198 @@
                 <a href="#">Checks</a>
               </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            
+            <li><a href="#">Islam Asker</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
           </div>
-          <div class="col-md-1" id="userPic">
-            <i class="fa fa-3x fa-fw fa-user pull-left text-muted"></i>
-          </div>
-          <div class="col-md-1 text-center">
-            <p class="lead text-center">Admin
-              <br>
-            </p>
-          </div>
+          </nav>
+          
         </div>
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <h1>Checks</h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-sm-4">
-              <div class="input-group date" data-provide="datepicker">
-                <input type="text" class="form-control">
-                <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-th"></span>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="input-group date" data-provide="datepicker">
-                <input type="text" class="form-control">
-                <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-th"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="btn-group btn-group-lg" data-toggle="buttons">
-              <a class="btn btn-link dropdown-toggle" data-toggle="dropdown"> User <i class="fa fa-caret-down"></i></a>
-              <ul class="dropdown-menu" role="menu">
-                <li>
-                  <a href="#">Action</a>
-                </li>
-              </ul>
-            </div>
+          <div class="col-md-12" align="center">
+            <h1 style="color:Salmon ;font-style: oblique;">Orders</h1>
           </div>
         </div>
         <hr>
         <div class="row">
           <div class="col-md-12">
             <div class="col-sm-12">
-              <table class="table table-hover bg-success">
+              <table class="table table-hover bg-success" id="orders">
                 <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Total</th>
+                  <tr bgcolor="AntiqueWhite ">
+                    <th>Order Date</th>
+                    <th>User Name</th>
+                    <th>Room</th>
+                    <th>Ext</th>
+                    <th class="hide">Total_Price</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <a href="#orders" data-toggle="collapse"> + </a>John</td>
-                    <td>115</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orders" data-toggle="collapse"> + </a>Mary</td>
-                    <td>225</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orders" data-toggle="collapse"> + </a>July</td>
-                    <td>332</td>
-                  </tr>
+                <script>
+                  var source = new EventSource('../controllers/ordersFeeds.php');
+                  source.onmessage = function(e) {
+                    var response = JSON.parse(e.data);
+                    var orderDate = response['response']['date']+" "+response['response']['time'];
+                    var userName = response['response']['u_name'];
+                    var room = response['response']['dest_room_no'];
+                    var ext = response['response']['ext'];
+                    var oId = response['response']['o_id'];
+                    $('#orders').append("<tr><td>"+orderDate+
+                      "</td><td>"+userName+"</td><td>"+
+                      room+"</td><td>"+ext+"</td><td class='hide'>"+total_price+"</td><td><a href='#' id='"+
+                      oId+"' name='details'>Show Details</a> | <a href='#' id='order"+oId+"'>Deliver</a></td></tr>");
+                    $('#'+oId).click(details);
+                    $('#order'+oId).click(deliver);
+                  }
+                  $.ajax({
+                    url:"../controllers/ordersController.php",
+                    method:"post",
+                    data:{
+                      "dest":"getOrders"
+                    },
+                    success:function(response) {
+                      for (var i = 0; i < response.length; i++) {
+                        var orderDate = response[i]['date']+" "+response[i]['time'];
+                        var userName = response[i]['u_name'];
+                        var room = response[i]['dest_room_no'];
+                        var ext = response[i]['ext'];
+                        var oId = response[i]['o_id'];
+                        var total = response[i]['total_price'];
+                        $('#orders').append("<tr><td>"+orderDate+"</td><td>"+userName+"</td><td>"+
+                          room+"</td><td>"+ext+"</td><td class='hide'>"+total+"</td><td><a href='#' id='"+oId+"' name='details'>Show Details</a> | <a href='#' id='order"+oId+"'>Deliver</a></td></tr>");
+                        $('#'+oId).click(details);
+                        $('#order'+oId).click(deliver);   
+                      }
+                    },
+                    error:function(xmlHttpRequestObj,status,error) {
+                      console.log(error);
+                    },
+                    complete:function(xmlHttpRequestObj) {
+                      console.log("Complete ");
+                    },
+                    dataType:"json",
+                    async:true
+                  });
+                  var shownOrder;
+                  var isAllHidden = true;
+                  function details(e){
+                    e.preventDefault();
+                    var orderId = $(e.target).attr('id');
+                    if (isAllHidden) {
+                      $('#orderDetails').show();
+                      $(e.target).text('Hide Details');
+                      shownOrder = orderId;
+                      isAllHidden = false;
+                      $.ajax({
+                        url:"../controllers/ordersController.php",
+                        method:"post",
+                        data:{
+                          "dest":"getOrderDetails",
+                          "oId":orderId
+                        },
+                        success:function(response) {
+                          console.log(response);
+                          var column = Math.floor(12/response.length);
+                          $('#orderDetails').empty();
+                          for (var i = 0; i < response.length; i++) {
+                            var img = response[i]['p_img'];
+                            var pName = response[i]['p_name'];
+                            var quantity = response[i]['quantity'];
+                            // class='class='col-sm-"+column+"'
+                            $('#orderDetails').append("<div style='float:left; width:50 px'><figure><img src='"+img+"' ><figcaption class='text-center'>"+pName+" | "+quantity+"</figcaption></figure></div>");
+                          }
+                          var totalPrice = $(e.target).parent().prev().text();
+                          $('#orderDetails').append("<div class='row'><div class='col-md-12 text-right'><p>Total: EGP "+totalPrice+"</p></div></div>");
+
+                        },
+                        error:function(xmlHttpRequestObj,status,error) {
+                          console.log(error);
+                        },
+                        complete:function(xmlHttpRequestObj) {
+                          console.log("Complete ");
+                        },
+                        dataType:"json",
+                        async:true
+                      });
+                    } else if (shownOrder == orderId) {
+                      $('#orderDetails').hide();
+                      $(e.target).text('Show Details');
+                      isAllHidden = true;
+                    }
+                  }
+                  function deliver(e) {
+                    e.preventDefault();
+                    var orderId = $(e.target).prev().attr('id');
+                    if (shownOrder == orderId) {
+                      $('#orderDetails').hide();
+                      isAllHidden = true;
+                    }
+                    $.ajax({
+                        url:"../controllers/ordersController.php",
+                        method:"post",
+                        data:{
+                          "dest":"deliver",
+                          "oId":orderId
+                        },
+                        success:function(response) {
+                          $(e.target).parent().parent().remove();       
+                        },
+                        error:function(xmlHttpRequestObj,status,error) {
+                          console.log(error);
+                        },
+                        complete:function(xmlHttpRequestObj) {
+                          console.log("Complete ");
+                        },
+                        async:true
+                      });
+                  }
+                </script>
                 </tbody>
               </table>
+              <div id="orderDetails" class="collapse">
+<!--                 <img src="https://unsplash.imgix.net/photo-1421986527537-888d998adb74?w=1024&amp;q=50&amp;fm=jpg&amp;s=e633562a1da53293c4dc391fd41ce41d"
+                width="200px" class="col-sm-4">
+                <img src="https://unsplash.imgix.net/photo-1423683249427-8ca22bd873e0?w=1024&amp;q=50&amp;fm=jpg&amp;s=5e57c661d0f772ce269188a6f5325708"
+                width="200px" class="col-sm-4">
+                <img src="https://unsplash.imgix.net/photo-1423347834838-5162bb452ca7?w=1024&amp;q=50&amp;fm=jpg&amp;s=c255e589621f06513c1d123c7323fe9c"
+                width="200px" class="col-sm-4"> -->
+                <!-- <div class="row">
+                  <div class="col-md-12 text-right">
+                    <p id="total">Total: EGP 40</p>
+                  </div>
+                </div> -->
+              </div>
+
             </div>
           </div>
         </div>
+
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-offset-1 col-md-10">
-            <div id="orders" class="collapse">
-              <table class="table table-hover bg-success">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a href="#orderDetails" data-toggle="collapse"> + </a>John</td>
-                    <td>115</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orderDetails" data-toggle="collapse"> + </a>Mary</td>
-                    <td>225</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="#orderDetails" data-toggle="collapse"> + </a>July</td>
-                    <td>332</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <div class="col-md-8 col-md-offset-2"></div>
         </div>
       </div>
-      <div class="section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div id="orderDetails" class="collapse" style="border: 2px solid black">
-                  <img src="#">
-                  <img src="#">
-                  <img src="#">
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="section">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <footer class="section section-primary">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <h1>ITI Cafteria</h1>
-                        <p>All rights reserved to Gorilla's team :)&nbsp;
-                          <br>Zahra - Aya - Hazem</p>
-                      </div>
-                      <div class="col-sm-6">
-                        <p class="text-info text-right">
-                          <br>
-                          <br>
-                        </p>
-                        <div class="row">
-                          <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
-                            <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                            <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                            <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                            <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-11 hidden-xs text-right">
-                            <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                            <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                            <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                            <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </footer>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <br>
+<br>
+<br>
+<br>
+<br>
+<div class=" row  text-center" background="Black">
+      <div class="well">Insititute of Information and Technology </div>
+</div>
+
+
   </body>
 
-</html>
+</html>	
