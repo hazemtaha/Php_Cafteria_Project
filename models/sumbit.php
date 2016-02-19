@@ -1,11 +1,12 @@
 <?php
-require_once "DbConnection.php";
-require_once "Product.php";
+require_once "../controllers/DbConnection.php";
+require_once "../controllers/Product.php";
 
 $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
-$upfile = "$DOCUMENT_ROOT/Project_Php/img/".$_FILES['p_img']['name'] ;
+$upfile = "$DOCUMENT_ROOT/Project_Php/assets/img/".$_FILES['p_img']['name'] ;
 // Does the file have the right MIME type?
-if ($_FILES['p_img']['type'] != 'image/jpeg')
+if ($_FILES['p_img']['type'] != 'image/jpeg' || $_FILES['p_img']['type'] != 'image/png'
+	|| $_FILES['p_img']['type'] != 'image/gif')
 {
 echo 'Problem: file is not plain text';
 exit;
@@ -26,7 +27,7 @@ echo $_FILES['p_img']['name'];
 }
 $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
 $result = $pro->insert_product();
-header("location: Add_product.php");
+header("location: ../views/Add_product.php");
 /**
  * Created by PhpStorm.
  * User: ayasharafelden
