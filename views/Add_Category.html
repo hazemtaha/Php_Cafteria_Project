@@ -53,11 +53,11 @@
 
     <title> Add Category </title>
 </head>
-<body >
+<body style="background-color: snow">
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="img/start.jpg" width="50" heigth="50"/>
+            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
 
         </div>
         <div class="navbar-header">
@@ -75,9 +75,10 @@
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="img/start.jpg" width="50" height="50"/> </li>
-            <li></li>
+            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+          
             <li><a href="#">Islam Asker</a></li>
+            <li><a href="#">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -93,10 +94,10 @@
     <!-- Mains Div-->
    <div align="center">
 
-       <label><h2 style="font-style: oblique;">Add Category</h2></label>
+       <label><h2 style="color:Salmon ;font-style: oblique;">Add Category</h2></label>
        <br/>
        <br/>
-       <form  method="post"  action="add_category.php">
+       <form  method="post"  action="../controllers/add_category.php">
        <label><h3 style="font-style: oblique; ">Category Name</h3></label>
 
        <input type="text" name="ctg_name" required/>
