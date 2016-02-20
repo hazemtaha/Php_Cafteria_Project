@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <script src="../assets/js/jquery-1.11.2.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
-
+    <script src="../assets/js/getUserInfo.js"></script>
     <style >
         .well{
             background-color: black;
@@ -44,32 +44,28 @@ tr , td{
 }
     </style>
 
-    <title>User Home</title>
+    <title>Home</title>
 </head>
 <body style="background-color:snow;">
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="img/start.jpg" width="50" heigth="50"/>
 
-        </div>
-        <div class="navbar-header">
-
-            <a class="navbar-brand" href="#">Cafertaria</a>
+            <a class="navbar-brand" href="#">ITI Cafertaria</a>
 
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li class="active"><a href="#">My Orders</a></li>
+            <li class="active"><a href="UserMainPage.html">Home</a></li>
+            <li class="active"><a href="my-orders.html">My Orders</a></li>
            
 
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="img/start.jpg" width="50" height="50"/> </li>
-            <li></li>
-            <li><a href="#">Islam Asker</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><img src="" width="50" height="50" id="userImg" /> </li>
+            
+            <li><a href="#" id="userName"></a></li>
+            <li><a href="../controllers/logout.php">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -88,7 +84,7 @@ tr , td{
   // confirm
   $(function(){
     $('#confirm').click(function(e) {
-      var userId = 3;
+      // var userId = 3;
       var notes = $('#notes').val();
       var room = $('#rooms option:selected').text();
       var totalPrice = $('#totalPrice').text();
@@ -106,7 +102,6 @@ tr , td{
         method:"post",
         data:{
           "dest":"addOrder",
-          "u_id":userId,
           "room_no":room,
           "notes":notes,
           "totalPrice":totalPrice,
@@ -164,7 +159,7 @@ tr , td{
         var productImg = response[i]['p_img'];
         var productId = response[i]['p_id'];
         var productPrice = response[i]['u_price'];
-        $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgp"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+        $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgp"+productId+"'src='../assets/img/"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
         $('#imgp'+productId).click(productClick);
       }
     },
@@ -191,7 +186,7 @@ tr , td{
         var productImg = response[i]['p_img'];
         var productId = response[i]['p_id'];
         var productPrice = response[i]['u_price'];
-        $('#latestOrders').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgl"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+        $('#latestOrders').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgl"+productId+"'src='../assets/img/"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
         $('#imgl'+productId).click(productClick);
       }
     },
@@ -222,7 +217,7 @@ tr , td{
           var productImg = response[i]['p_img'];
           var productId = response[i]['p_id'];
           var productPrice = response[i]['u_price'];
-          $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgs"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+          $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgs"+productId+"'src='../assets/img/"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
           $('#imgs'+productId).click(productClick);
         }
       },

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <script src="../assets/js/jquery-1.11.2.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
-
+    <script src="../assets/js/getUserInfo.js"></script>
     <style >
         .well{
             background-color: black;
@@ -53,34 +53,29 @@ tr , td{
 
     </style>
 
-    <title>Admin Home</title>
+    <title>Manual Orders</title>
 </head>
 <body style="background-color:snow;">
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
 
-        </div>
-        <div class="navbar-header">
-
-            <a class="navbar-brand" href="#">Cafertaria</a>
+            <a class="navbar-brand" href="#">ITI Cafertaria</a>
 
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li class="active"><a href="#">Products</a></li>
-            <li class="active"><a href="#">Users</a></li>
-            <li class="active"><a href="#">Manual Orders</a></li>
-            <li class="active"><a href="#">Checks</a></li>
+            <li class="active"><a href="orders.html">Home</a></li>
+            <li class="active"><a href="Show_Products.php">Products</a></li>
+            <li class="active"><a href="all-users.html">Users</a></li>
+            <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
+            <li class="active"><a href="checks.html">Checks</a></li>
 
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
-            <li></li>
-            <li><a href="#">Islam Asker</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><img src="" width="50" height="50" id="userImg" /> </li>
+            <li><a href="#" id="userName"></a></li>
+            <li><a href="../controllers/logout.php">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -198,7 +193,7 @@ tr , td{
         var productImg = response[i]['p_img'];
         var productId = response[i]['p_id'];
         var productPrice = response[i]['u_price'];
-        $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgp"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+        $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgp"+productId+"'src='../assets/img/"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
         $('#imgp'+productId).click(productClick);
       }
     },
@@ -211,33 +206,33 @@ tr , td{
     dataType:"json",
     async:true
   });
-  // get the latest products
-  $.ajax({
-    url:"../controllers/productsController.php",
-    method:"post",
-    data:{
-      "dest":"getLatestProducts"
-    },
-    success:function(response) {
-      console.log(response);
-      for (var i = 0; i < response.length; i++) {
-        var productName = response[i]['p_name'];
-        var productImg = response[i]['p_img'];
-        var productId = response[i]['p_id'];
-        var productPrice = response[i]['u_price'];
-        $('#latestOrders').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgl"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
-        $('#imgl'+productId).click(productClick);
-      }
-    },
-    error:function(xmlHttpRequestObj,status,error) {
-      console.log(error);
-    },
-    complete:function(xmlHttpRequestObj) {
-      console.log("Complete ");
-    },
-    dataType:"json",
-    async:true
-  }); 
+  // // get the latest products
+  // $.ajax({
+  //   url:"../controllers/productsController.php",
+  //   method:"post",
+  //   data:{
+  //     "dest":"getLatestProducts"
+  //   },
+  //   success:function(response) {
+  //     console.log(response);
+  //     for (var i = 0; i < response.length; i++) {
+  //       var productName = response[i]['p_name'];
+  //       var productImg = response[i]['p_img'];
+  //       var productId = response[i]['p_id'];
+  //       var productPrice = response[i]['u_price'];
+  //       $('#latestOrders').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgl"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+  //       $('#imgl'+productId).click(productClick);
+  //     }
+  //   },
+  //   error:function(xmlHttpRequestObj,status,error) {
+  //     console.log(error);
+  //   },
+  //   complete:function(xmlHttpRequestObj) {
+  //     console.log("Complete ");
+  //   },
+  //   dataType:"json",
+  //   async:true
+  // }); 
   // search 
   $('#srch-term').on('input',function(e) {
   var query = e.target.value;
@@ -256,7 +251,7 @@ tr , td{
           var productImg = response[i]['p_img'];
           var productId = response[i]['p_id'];
           var productPrice = response[i]['u_price'];
-          $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgs"+productId+"'src='"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
+          $('#products').append("<div class='col-sm-4' name='"+productPrice+"'><figure class='shape' name='"+productId+"'><img id='imgs"+productId+"'src='../assets/img/"+productImg+"' width='100' height='100'><figcaption>"+productName+"</figcaption></figure></div>");
           $('#imgs'+productId).click(productClick);
         }
       },

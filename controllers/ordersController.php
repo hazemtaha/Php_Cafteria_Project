@@ -28,7 +28,8 @@
                 $orderInterface->setOrderStatus('Out for delivery',$_POST['oId']);
                 break;
             case 'myOrders':
-                    $ordersRowSet = $orderInterface->getOrders("and status != 'canceled' order by date,time");
+                    $_POST['u_id'] = $_SESSION['u_id'];
+                    $ordersRowSet = $orderInterface->getOrdersByUser("order by date,time");
                     $orders = array();
                     while ($order = $ordersRowSet->fetch_assoc()) {
                         array_push($orders, $order);
@@ -45,9 +46,10 @@
                 echo json_encode($orders);
                 break;
             case 'addOrder':
-                $affRows = $orderInterface->addOrder();
-
-                echo $affRows;
+                if (isset($_SESSION['u_id']) && $_SESSION['u_id'] != 1) {
+                    $_POST['u_id'] = $_SESSION['u_id'];
+                }
+                $orderInterface->addOrder();
                 break;
             case 'getOrdersByUser':
                 $ordersRowSet = $orderInterface->getOrdersByUser($_POST['optQ']);

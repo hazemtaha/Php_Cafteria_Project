@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../assets/js/getUserInfo.js"></script>
     <style >
         .well{
             background-color: black;
@@ -51,24 +52,20 @@
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
 
-        </div>
-        <div class="navbar-header">
-
-            <a class="navbar-brand" href="#">Cafertaria</a>
+            <a class="navbar-brand" href="#">ITI Cafertaria</a>
 
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">My Orders</a></li>
+            <li class="active"><a href="UserMainPage.html">Home</a></li>
+            <li class="active"><a href="my-orders.html">My Orders</a></li>
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            <li><img src="" width="50" height="50" id="userImg" /> </li>
             
-            <li><a href="#">Islam Asker</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="#" id="userName"></a></li>
+            <li><a href="../controllers/logout.php">Logout</a></li>
     </div>
 </nav>
 <br/>
@@ -229,7 +226,7 @@
                 var pName = response[i]['p_name'];
                 var quantity = response[i]['quantity'];
                 // class='class='col-sm-"+column+"'
-                $('#orderDetails').append("<div style='float:left; width:50 px'><figure><img src='"+img+"' ><figcaption class='text-center'>"+pName+" | "+quantity+"</figcaption></figure></div>");
+                $('#orderDetails').append("<div style='float:left; width:50 px'><figure><img src='../assets/img/"+img+"' ><figcaption class='text-center'>"+pName+" | "+quantity+"</figcaption></figure></div>");
               }
               var totalPrice = $(e.target).parent().next().next().text();
               $('#orderDetails').append("<div class='row'><div class='col-md-12 text-right'><p>Total: EGP "+totalPrice+"</p></div></div>");

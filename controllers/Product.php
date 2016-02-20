@@ -86,12 +86,9 @@ public function Get_Products(){
     //////////////////////////////////////////////////Function Get Specific Product (Search)///////////////////////////////////////////////////
   public  function Search_product($value){
         //////////////////////////////////////////Search using Product Id////////////////////////////////////////////////////////////////
-           $sql = "select * FROM products p,category  c where p.p_id='".$value."' and p.ctg_id=c.ctg_id";
+           $sql = "select products.*,category.* FROM products,category where products.ctg_id=category.ctg_id and products.p_id= ".$value;
         $result=$this->dbConnection->query($sql);
         return $result;
-
-   
-
   }
     /////////////////////////////////////////////////////Get Name of Product//////////////////////////////////////////////////////////////
   public  function get_PName(){

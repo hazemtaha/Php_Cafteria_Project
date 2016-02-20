@@ -29,6 +29,11 @@
                 }
                 echo json_encode($usersTotal);
                 break;
+            case 'getUserInfo':
+                $userInfoSet = $usersInterface->query("select * from users where u_id = ".$_SESSION['u_id']);
+                $userInfo = $userInfoSet->fetch_assoc();
+                echo json_encode($userInfo);
+                break;
             default:
     			# code...
     			break;

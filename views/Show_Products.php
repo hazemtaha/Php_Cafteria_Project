@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../assets/js/getUserInfo.js"></script>
     <style >
         .well{
             background-color: black;
@@ -64,19 +65,19 @@ tr , td{
 
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li class="active"><a href="#">Products</a></li>
-            <li class="active"><a href="#">Users</a></li>
-            <li class="active"><a href="#">Manual Orders</a></li>
-            <li class="active"><a href="#">Checks</a></li>
+            <li class="active"><a href="orders.html">Home</a></li>
+            <li class="active"><a href="Show_Products.php">Products</a></li>
+            <li class="active"><a href="all-users.html">Users</a></li>
+            <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
+            <li class="active"><a href="checks.html">Checks</a></li>
 
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            <li><img src="" width="50" height="50" id="userImg" /> </li>
             
-            <li><a href="#">Islam Asker</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="#" id="userName"></a></li>
+            <li><a href="../controllers/logout.php">Logout</a></li>
         </ul>
     </div>
 </nav>

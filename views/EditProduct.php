@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../assets/js/getUserInfo.js"></script>
     <style >
         .well{
             background-color: black;
@@ -55,36 +56,22 @@ tr , td{
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
 
-        </div>
-        <div class="navbar-header">
-
-            <a class="navbar-brand" href="#">Cafertaria</a>
+            <a class="navbar-brand" href="#">ITI Cafertaria</a>
 
         </div>
         <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <a href="#">Products</a>
-                    </li>
-                    <li>
-                        <a href="#">Users</a>
-                    </li>
-                    <li>
-                        <a href="#">Manual Orders</a>
-                    </li>
-                    <li>
-                        <a href="#">Checks</a>
-                    </li>
+            <li class="active"><a href="orders.html">Home</a></li>
+            <li class="active"><a href="Show_Products.php">Products</a></li>
+            <li class="active"><a href="all-users.html">Users</a></li>
+            <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
+            <li class="active"><a href="checks.html">Checks</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            <li><img src="" width="50" height="50" id="userImg" /> </li>
             
-            <li><a href="#">Islam Asker</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="#" id="userName"></a></li>
+            <li><a href="../controllers/logout.php">Logout</a></li>
         </ul>
             </div>
             </nav>
@@ -102,13 +89,13 @@ tr , td{
                     
                        require_once "../controllers/DbConnection.php";
                        require_once "../controllers/Product.php";
+                        require_once "../controllers/Category.php";
                        $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
                                 // output data of each row
                                 while($row = $result->fetch_assoc()) {
-                                    var_dump($row);
-                                    echo "<option value='".$row["ctg_id"]."'>".$row["ctg_name"]."</option>";
+                                    // echo "<option value='".$row["ctg_id"]."'>".$row["ctg_name"]."</option>";
                                    echo "<label class='control-label' >Product</label>";
                       echo "<input class='form-control' id='product' value='".$row["p_name"]."'
                                type='text' name='p_name'>";
@@ -119,18 +106,17 @@ tr , td{
                                value='".$row["u_price"]."' name='u_price'>";
                                 }
                             } 
-                       ?>  
-                    </div>
+                       
+                   echo "</div>";
                    
-                    <div class="form-group">
-                        <a href="../views/Add_Category.html" class="pull-right">Add Category</a>
-                        <label class="control-label" for="category">Category</label>
-                        <select name="ctg_id" class="form-control" id="category" onchange="document.getElementById('selected_text').value=this.options[this.selectedIndex].text">
-                            <option value="" selected="">Select Category</option>
-                           <?php
-                            require_once "../controllers/DbConnection.php";
-                            require_once "../controllers/Category.php";
-                            $pro = new Category(DbConnection::getConnection("localhost","aya","aya","cafteria"));
+                   echo "<div class='form-group'>
+                        <a href='../views/Add_Category.html' class='pull-right'>Add Category</a>
+                        <label class='control-label' for='category'>Category</label>
+                        <select name='ctg_id' class='form-control' id='category' >
+                            <option value='' selected=''>Select Category</option>
+                          ";
+                           
+                            $pro = new Category(DbConnection::getConnection("localhost","root","iti","cafteria"));
 
                             $result = $pro->select_categories();
                            
@@ -144,21 +130,25 @@ tr , td{
                                 echo "0 results";
                             }
                
-                       echo " </select>";
+                     
                    
                   
-                    ?>
-                   </div>
-                   <div >
-                        <label class="control-label">Select Image</label>
-                        <input name="p_img" type="file" class="control-label" id="img">
+                  
+                   echo "</select>";
 
-                    </div>
-                    <br/>
-                    <br/>
-                    <input type="hidden" name="selected_text" id="selected_text" value="" />
-                    <button type="submit" class="active btn btn-default btn-lg">Submit</button>
-                </form>
+
+                   
+                  echo" <div >";
+                    echo"    <label class='control-label'>Select Image</label>";
+                        echo"<input name='p_img' type='file' class='control-label' id='img'>";
+
+                   echo "</div>";
+                    echo"<br/>";
+                   echo" <br/>";
+                   echo" <button type='submit' class='active btn btn-default btn-lg'>Submit</button>";
+               echo "</form>";
+               ?>
+            </div>
             </div>
         
         <div class="row">
