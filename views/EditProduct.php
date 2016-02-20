@@ -102,6 +102,7 @@ tr , td{
                     
                        require_once "../controllers/DbConnection.php";
                        require_once "../controllers/Product.php";
+                        require_once "../controllers/Category.php";
                        $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
@@ -118,17 +119,16 @@ tr , td{
                                value='".$row["u_price"]."' name='u_price'>";
                                 }
                             } 
-                       ?>  
-                    </div>
+                       
+                   echo "</div>";
                    
-                    <div class="form-group">
-                        <a href="../views/Add_Category.html" class="pull-right">Add Category</a>
-                        <label class="control-label" for="category">Category</label>
-                        <select name="ctg_id" class="form-control" id="category" onchange="document.getElementById('selected_text').value=this.options[this.selectedIndex].text">
-                            <option value="" selected="">Select Category</option>
-                           <?php
-                            require_once "../controllers/DbConnection.php";
-                            require_once "../controllers/Category.php";
+                   echo "<div class='form-group'>
+                        <a href='../views/Add_Category.html' class='pull-right'>Add Category</a>
+                        <label class='control-label' for='category'>Category</label>
+                        <select name='ctg_id' class='form-control' id='category' >
+                            <option value='' selected=''>Select Category</option>
+                          ";
+                           
                             $pro = new Category(DbConnection::getConnection("localhost","aya","aya","cafteria"));
 
                             $result = $pro->select_categories();
@@ -143,21 +143,25 @@ tr , td{
                                 echo "0 results";
                             }
                
-                       echo " </select>";
+                     
                    
                   
-                    ?>
-                   </div>
-                   <div >
-                        <label class="control-label">Select Image</label>
-                        <input name="p_img" type="file" class="control-label" id="img">
+                  
+                   echo "</select>";
 
-                    </div>
-                    <br/>
-                    <br/>
-                    <input type="hidden" name="selected_text" id="selected_text" value="" />
-                    <button type="submit" class="active btn btn-default btn-lg">Submit</button>
-                </form>
+
+                   
+                  echo" <div >";
+                    echo"    <label class='control-label'>Select Image</label>";
+                        echo"<input name='p_img' type='file' class='control-label' id='img'>";
+
+                   echo "</div>";
+                    echo"<br/>";
+                   echo" <br/>";
+                   echo" <button type='submit' class='active btn btn-default btn-lg'>Submit</button>";
+               echo "</form>";
+               ?>
+            </div>
             </div>
         
         <div class="row">
