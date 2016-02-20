@@ -101,7 +101,7 @@ tr , td{
                     echo "<div class='form-group'>";
                     
                        require_once "../controllers/DbConnection.php";
-                       require_once "../controllers/Category.php";
+                       require_once "../controllers/Product.php";
                        $pro = new Product(DbConnection::getConnection("localhost","aya","aya","cafteria"));
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
@@ -159,7 +159,7 @@ tr , td{
                     <button type="submit" class="active btn btn-default btn-lg">Submit</button>
                 </form>
             </div>
-        </div>
+        
         <div class="row">
             <div class="col-md-12"></div>
         </div>
