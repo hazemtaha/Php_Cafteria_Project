@@ -1,24 +1,47 @@
 <?php
-require_once 'DbConnection.php';
+require_once '../controllers/DbConnection.php';
+require_once '../controllers/user.php';
 
-$email = $_POST ["email"];
-$password = $_POST ["password"];
 
-	//object from DbConnection class==================
-	$mycon =  DbConnection::getConnection("localhost","zahra","iti","cafteria");
-	//query=============
-	$sql = "SELECT * FROM users WHERE u_email= '".$email."' AND u_password = '".md5($password)."'";  
-	$res = $mycon->query($sql);	
-	if(mysqli_num_rows($res) > 0)  
+$pro = new user(DbConnection::getConnection("localhost","zahra","iti","cafteria"));
+$result = $pro->Login($_POST["email"],$_POST["password"]);
+//var_dump($result);
+//header("location: ../views/Add_product.php");
+ if ($result->num_rows == 1) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    if($row['u_id'] = "1")
+										{
+											$_SESSION['id']=$row['u_id'];
+
+											header("location: ../views/AdminMainPage.html");
+										}
+									else if ($row['u_id'] != "1")
+											{	
+												$_SESSION['id']=$row['u_id'];
+
+												header("location: ../views/UserMainPage.html");	
+											}
+											
+                                }
+                            }
+                            else{
+
+                               header("location: ../views/Login1.html"); 
+
+                            }
+
+
+/*	if(mysqli_num_rows($result) > 0)  
            	{           		
-           		$row=mysqli_fetch_array($res);
+           		$row=mysqli_fetch_array($result);
 
            		//ADMIN =============================
            		if($row['u_id'] = "1")
 				{
 					$_SESSION['id']=$row['u_id'];
 
-					header("location: AdminMainPage.html");
+					header("location: ../views/AdminMainPage.html");
 				}
 
 				//USER===============================
@@ -26,7 +49,7 @@ $password = $_POST ["password"];
 				{	
 					$_SESSION['id']=$row['u_id'];
 
-					header("location: UserMainPage.html");	
+					header("location: ../views/UserMainPage.html");	
 				}
 				else 
 				{
@@ -35,5 +58,5 @@ $password = $_POST ["password"];
 
 
            	}
-
+*/
 ?>
