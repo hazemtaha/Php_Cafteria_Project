@@ -72,48 +72,38 @@ tr , td{
         <li><a href="#">All Products</a></li>
        
       </ul>
-      <ul>
-      <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
             <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
-            <li></li>
+            
             <li><a href="#">Islam Asker</a></li>
             <li><a href="#">Logout</a></li>
         </ul>
-      </ul>
+    </div>
+</nav>
+<br/>
 
-  </nav>
-</div>
+<div class="row">
+<div class="col-sm-1"></div> 
+<div class="col-sm-10">
+<div align="center"><h1 style="color:Salmon ;font-style: oblique;"> All Users</h1></div>
+<br>
 
-
-
-<br> <br> 
-
-
-  <div class="col-sm-11" align="center">
-    <h1 style="color:Salmon ;font-style: oblique;"> All Users </h1>
-  </div>
-  <div class="col-sm-1" >
-      <a href="AddUser.php">Add user</a>
-  </div>
-
-<br> <br> <br> <br>
-
-<div class="col-sm-12 table-responsive">
- <table class="table table-condensed  table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
+    <table class="table table-condensed" align="center">
+        <thead>
+        <tr bgcolor="AntiqueWhite ">
+            <th>Name</th>
         <th>Room</th>
         <th>image</th>
         <th>Ext.</th>
         <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-      <?php
+        </tr>
+        </thead>
+        <tbody>
+        
 
-        require_once "../controllers/DbConnection.php";
+        <?php
+
+         require_once "../controllers/DbConnection.php";
         require_once "../controllers/user.php";
         $pro = new user(DbConnection::getConnection("localhost","aya","aya","cafteria"));
         $result = $pro->dispaly_users();
@@ -137,18 +127,27 @@ tr , td{
           echo "0 results";
       }
 
-     ?>
 
-    </tbody>
-   </form> 
-  </table> 
+        ?>
+        </tbody>
+        </table>
+</div>
+<div class="col-sm-1"></div>
+
 </div>
 
-<br> <br> <br> <br>
+ </div>   
 
- <div class=" row  text-center" background="Black">
+<br>
+<div class=" row  text-center" background="Black">
       <div class="well">Insititute of Information and Technology </div>
 </div>
 
+
+
+
+ 
+ 
 </body>
+
 </html>
