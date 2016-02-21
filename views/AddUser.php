@@ -49,7 +49,7 @@ tr , td{
 
     </style>
 
-    <title>Show Products</title>
+    <title>Add User</title>
 </head>
 <body  style="background-color:Snow ">
 <nav class="navbar navbar-inverse ">
@@ -162,18 +162,7 @@ tr , td{
 
 <br> <br>
 
- <div class=" row col-sm-12 text-center">
-  <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li class="active"><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul>
-
- </div>
- <br>
-  <br> <br> <br> <br> 
+  <br> <br> 
  <div class="footer text-center" background="Black">
       <div class="well">Insititute of Information and Technology </div>
 
