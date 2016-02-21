@@ -1,79 +1,154 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
 
-class user
-{
-	private $dbConnection;
-	function __construct(mysqli $dbCon)
-    {
-        $this->dbConnection = $dbCon;
-    }
-
-       //===========================Add user==============================
-
-    function Add_user(){
-
-	$sql = "INSERT INTO users (u_name,u_email,u_password,room_no, ext, u_img) VALUES ( '".$_POST["u_name"]."', '".$_POST["u_email"]."', md5('".$_POST["u_pass"]."'),
-	'".$_POST["u_room"]."', '".$_POST ["ext"]."', '".$_FILES['pic']['name']."')";
-
-	if ($this->dbConnection->query($sql) === TRUE) {
-		echo "done";
-             
-        } else {
-            echo "Error: " . $sql . "<br>" . $this->dbConnection->query($sql)->error;
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style >
+        .well{
+            background-color: black;
         }
+        .col-sm-2{
 
-	}   
-    	//============================Delete user===========================
-	public function  delete_user($val){
+            padding: 10px;
+ }
+        .shape{
+            border: 1px solid Gainsboro  ;
+  }
+  table{
 
-    $sql = "DELETE FROM users WHERE u_id='".$val."'";
-    if ( $this->dbConnection->query($sql) === TRUE) {
-        echo " successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $this->dbConnection->query($sql)->error;
-    }}
+      
 
-	//=========================Get users================================
-	function dispaly_users(){
 
-		$sql = "select * from users";
-
-		$result = $this->dbConnection->query($sql);
-
-		return $result;
-	}     
-		
-	//============================update user===============================
-	public function edit_user ($val,$val1,$val2,$val3,$val4)
-	{
-	$sql = "UPDATE users SET u_name='".$val1."',room_no='".$val2."', ext='".$val3."' , u_img='".$val4."' WHERE u_id='".$val."' ";
-   	}
-   	//=============================Search user==============================
-   	public  function search_user($value){
-        $sql = "SELECT * FROM users where u_id='".$value."' ";
-        $result=$this->dbConnection->query($sql);
-        return $result;
   }
 
-	//============================Login===============================
-	     public function Login($value1,$value2){
 
-                $sql = "SELECT * FROM users WHERE u_email= '".$value1."' AND u_password = '".$value2."'";  
-				$res = $this->dbConnection->query($sql);	
-				return $res;
-				
+.col-sm-4 {
 
 
+     border: 1px solid Gainsboro;
+
+}
+tr , td{
+
+  padding: 7px;
+
+
+}
+
+#size{
+
+
+    border: 1px;
+}
+
+
+    </style>
+
+    <title>Show Products</title>
+</head>
+<body  style="background-color:Snow ">
+<nav class="navbar navbar-inverse ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
+
+        </div>
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="#">Cafertaria</a>
+
+        </div>
+        <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Manual Order</a></li>
+        <li><a href="#">Checks</a></li>
+        <li><a href="#">All Products</a></li>
+       
+      </ul>
+      <ul>
+      <ul class="nav navbar-nav navbar-right">
+            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
+            <li></li>
+            <li><a href="#">Islam Asker</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+      </ul>
+
+  </nav>
+</div>
 
 
 
-
-	     }
-
-
-    }
-
-?>
+<br> <br> 
 
 
+  <div class="col-sm-11" align="center">
+    <h1 style="color:Salmon ;font-style: oblique;"> All Users </h1>
+  </div>
+  <div class="col-sm-1" >
+      <a href="AddUser.php">Add user</a>
+  </div>
+
+<br> <br> <br> <br>
+
+<div class="col-sm-12 table-responsive">
+ <table class="table table-condensed  table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Room</th>
+        <th>image</th>
+        <th>Ext.</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <?php
+
+        require_once "../controllers/DbConnection.php";
+        require_once "../controllers/user.php";
+        $pro = new user(DbConnection::getConnection("localhost","aya","aya","cafteria"));
+        $result = $pro->dispaly_users();
+
+      if ($result->num_rows > 0) 
+      {
+        while($row = $result->fetch_assoc()) 
+        {    
+          echo '<tr>
+               <td>'.$row["u_name"].'</td>
+               <td>'.$row["room_no"].'</td>';
+          echo "<td><img src='../assets/img/".$row['u_img']."' width='30' height='30'/></td>";
+          echo  '<td>'.$row["ext"].'</td>
+                 <td><a href="../views/edituser1.php?id='.$row['u_id'].'">Edit</a> 
+                 <a href="../models/deleteuser.php?id='.$row['u_id'].'">Delete</a></td>
+          </tr>';
+        }  
+      }  
+      else 
+      {
+          echo "0 results";
+      }
+
+     ?>
+
+    </tbody>
+   </form> 
+  </table> 
+</div>
+
+<br> <br> <br> <br>
+
+ <div class=" row  text-center" background="Black">
+      <div class="well">Insititute of Information and Technology </div>
+</div>
+
+</body>
+</html>
