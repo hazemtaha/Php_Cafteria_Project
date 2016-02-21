@@ -57,7 +57,7 @@
     </thead>
     <tbody>
        <?php
-            echo '<form role="form" action="../models/edituser.php?id='.$_GET['u_id'].'" method="post" enctype="multipart/form-data">';
+            echo '<form role="form" action="../models/edituser.php?id='.$_GET['id'].'" method="post" enctype="multipart/form-data">';
                    
                 echo "<div class='form-group'>";
                     
