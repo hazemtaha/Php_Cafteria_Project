@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>All Users</title>
+  <title>Edit Users</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
 
 
   <div class="col-sm-11" >
-    <h1> All Users </h1>
+    <h1> Edit Users </h1>
   </div>
   <div class="col-sm-1" >
       <a href="#">Add user</a>
@@ -56,35 +56,33 @@
       </tr>
     </thead>
     <tbody>
-      
-      <?php
+       <?php
+            echo '<form role="form" action="../models/edituser.php?id='.$_GET['id'].'" method="post" enctype="multipart/form-data">';
+                   
+                echo "<div class='form-group'>";
+                    
+                       require_once "../controllers/DbConnection.php";
+                       require_once "../controllers/user.php";
+                       $pro = new user(DbConnection::getConnection("localhost","zahra","iti","cafteria"));
+                       $result = $pro->search_user($_GET['id']);
+                        if ($result->num_rows == 1) {
+                          
+                                while($row = $result->fetch_assoc()) 
+                                {
+                               echo "<tr> <td>
+                               <input class='form-control' value='".$row["u_name"]."'
+                               type='text' name='u_name'> </td>";
+                               echo "<td> <input class='form-control' value='".$row["room_no"]."'
+                               type='text' name='room_no'>
+                               </td>";
+                              echo "<td> <input class='form-control' name='pic' type='file' value='/img/".$row['u_img']."' width='30' height='30'/></td>";
 
-        require_once "../controllers/DbConnection.php";
-        require_once "../controllers/user.php";
-        $pro = new user(DbConnection::getConnection("localhost","zahra","iti","cafteria"));
-        $result = $pro->dispaly_users();
-
-      if ($result->num_rows > 0) 
-      {
-        while($row = $result->fetch_assoc()) 
-        {    
-          echo '<tr>
-               <td>'.$row["u_name"].'</td>
-               <td>'.$row["room_no"].'</td>';
-          echo "<td><img src='../assets/img/".$row['u_img']."' width='30' height='30'/></td>";
-          echo  '<td>'.$row["ext"].'</td>
-                 <td><a href="../views/edituser1.php?id='.$row['u_id'].'">Edit</a> 
-                 <a href="../models/deleteuser.php?id='.$row['u_id'].'">Delete</a></td>
-          </tr>';
-        }  
-      }  
-      else 
-      {
-          echo "0 results";
-      }
-
-     ?>
-
+                              echo "<td> <input class='form-control' name='ext' value='".$row["ext"]."' </td> ";
+                              echo "<td> <button type='submit'>Submit</button> </td> </tr> ";
+                                }
+                            } 
+          ?>  
+       
     </tbody>
    </form> 
   </table> 
