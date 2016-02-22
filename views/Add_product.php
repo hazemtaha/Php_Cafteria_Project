@@ -64,29 +64,18 @@ tr , td{
 
         </div>
         <ul class="nav navbar-nav">
+            <li class="active"><a href="orders.html">Home</a></li>
+            <li class="active"><a href="Show_Products.php">Products</a></li>
+            <li class="active"><a href="all-users.php">Users</a></li>
+            <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
+            <li class="active"><a href="checks.html">Checks</a></li>
 
-               
-                    <li class="active">
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <a href="#">Products</a>
-                    </li>
-                    <li>
-                        <a href="#">Users</a>
-                    </li>
-                    <li>
-                        <a href="#">Manual Orders</a>
-                    </li>
-                    <li>
-                        <a href="#">Checks</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-            <li><img src="../assets/img/start.jpg" width="50" height="50"/> </li>
-            
-            <li><a href="#">Islam Asker</a></li>
-            <li><a href="#">Logout</a></li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><img src="" width="50" height="50" id="userImg" /> </li>
+            <li><a href="#" id="userName"></a></li>
+            <li><a href="../controllers/logout.php">Logout</a></li>
         </ul>
             </div>
            
@@ -118,7 +107,7 @@ tr , td{
                            <?php
                             require_once "../controllers/DbConnection.php";
                             require_once "../controllers/Category.php";
-                            $pro = new Category(DbConnection::getConnection("localhost","root","iti","cafteria"));
+                            $pro = new Category(DbConnection::getConnection());
 
                             $result = $pro->select_categories();
                            

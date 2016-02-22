@@ -10,7 +10,7 @@ if (!isset($_SESSION['rows'])) {
 }
 var_dump($_SESSION);
 $tblRows = $_SESSION['rows'];
-$dbConnection = DbConnection::getConnection("localhost","root","iti","cafteria");
+$dbConnection = DbConnection::getConnection();
 $orderInterface = new Orders($dbConnection);
 $dbRowSet = $dbConnection->query("SELECT count(*) as count from orders");
 $resultArr = $dbRowSet->fetch_assoc();

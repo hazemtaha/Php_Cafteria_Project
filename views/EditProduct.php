@@ -63,7 +63,7 @@ tr , td{
         <ul class="nav navbar-nav">
             <li class="active"><a href="orders.html">Home</a></li>
             <li class="active"><a href="Show_Products.php">Products</a></li>
-            <li class="active"><a href="all-users.html">Users</a></li>
+            <li class="active"><a href="all-users.php">Users</a></li>
             <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
             <li class="active"><a href="checks.html">Checks</a></li>
                 </ul>
@@ -90,7 +90,7 @@ tr , td{
                        require_once "../controllers/DbConnection.php";
                        require_once "../controllers/Product.php";
                         require_once "../controllers/Category.php";
-                       $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+                       $pro = new Product(DbConnection::getConnection());
                        $result = $pro->Search_product($_GET['id']);
                         if ($result->num_rows == 1) {
                                 // output data of each row
@@ -116,7 +116,7 @@ tr , td{
                             <option value='' selected=''>Select Category</option>
                           ";
                            
-                            $pro = new Category(DbConnection::getConnection("localhost","root","iti","cafteria"));
+                            $pro = new Category(DbConnection::getConnection());
 
                             $result = $pro->select_categories();
                            

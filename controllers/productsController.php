@@ -1,7 +1,7 @@
 <?php
 	require_once "DbConnection.php";
 	session_start();
-	$productsInterface = DbConnection::getConnection("localhost","root","iti","cafteria");
+	$productsInterface = DbConnection::getConnection();
 	if (isset($_POST['dest'])) {
 		switch ($_POST['dest']) {
 			case 'getProducts':

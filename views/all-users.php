@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../assets/js/getUserInfo.js"></script>
 </head>
 <body>
 
@@ -19,7 +20,7 @@
       <ul class="nav navbar-nav">
             <li class="active"><a href="orders.html">Home</a></li>
             <li class="active"><a href="Show_Products.php">Products</a></li>
-            <li class="active"><a href="all-users.html">Users</a></li>
+            <li class="active"><a href="all-users.php">Users</a></li>
             <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
             <li class="active"><a href="checks.html">Checks</a></li>
 
@@ -43,7 +44,7 @@
     <h1> All Users </h1>
   </div>
   <div class="col-sm-1" >
-      <a href="#">Add user</a>
+      <a href="AddUser.html">Add user</a>
   </div>
 
 <br> <br> <br> <br>
@@ -96,14 +97,5 @@
 
 <br> <br> <br> <br>
 
-<div class=" col-sm-12 text-center">
-  <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li class="active"><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul>
- </div>
 </body>
 </html>

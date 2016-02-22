@@ -12,15 +12,15 @@ class user
        //===========================Add user==============================
 
     function Add_user(){
-
-	$sql = "INSERT INTO users (u_name,u_email,u_password,room_no, ext, u_img) VALUES ( '".$_POST["u_name"]."', '".$_POST["u_email"]."', md5('".$_POST["u_pass"]."'),
-	'".$_POST["u_room"]."', '".$_POST ["ext"]."', '".$_FILES['pic']['name']."')";
+    $roomQuery = "Insert into rooms values(".$_POST['u_room'].")";	
+	$this->dbConnection->query($roomQuery);
+	$sql = "INSERT INTO users (u_name,u_email,u_password,room_no,ext,u_img) VALUES ( '".$_POST["u_name"]."', '".$_POST["u_email"]."', md5('".$_POST["u_pass"]."'),
+	".$_POST["u_room"].", '".$_POST ["ext"]."', '".$_FILES['pic']['name']."')";
 
 	if ($this->dbConnection->query($sql) === TRUE) {
 		echo "done";
-             
         } else {
-            echo "Error: " . $sql . "<br>" . $this->dbConnection->query($sql)->error;
+            echo "Error: " . $sql . "<br>" . $this->dbConnection->error;
         }
 
 	}   
@@ -48,6 +48,7 @@ class user
 	public function edit_user ($val,$val1,$val2,$val3,$val4)
 	{
 	$sql = "UPDATE users SET u_name='".$val1."',room_no='".$val2."', ext='".$val3."' , u_img='".$val4."' WHERE u_id='".$val."' ";
+	$this->dbConnection->query($sql);
    	}
    	//=============================Search user==============================
    	public  function search_user($value){

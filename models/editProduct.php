@@ -1,7 +1,7 @@
 <?php
   require_once "../controllers/DbConnection.php";
   require_once "../controllers/Product.php";
-  $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+  $pro = new Product(DbConnection::getConnection());
   $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 $upfile = "../assets/img/".$_FILES['p_img']['name'] ;
 // Does the file have the right MIME type?

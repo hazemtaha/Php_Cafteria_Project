@@ -8,7 +8,7 @@ require_once "../controllers/Category.php";
  * Time: 12:00 AM
  */
 
-$cat=new Category(DbConnection::getConnection("localhost","root","iti","cafteria"));
+$cat=new Category(DbConnection::getConnection());
 
 $result = $cat->insert_product();
 echo "jjdjd";

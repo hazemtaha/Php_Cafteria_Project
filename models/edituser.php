@@ -2,7 +2,7 @@
   require_once "../controllers/DbConnection.php";
   require_once "../controllers/user.php";
 
-  $pro = new user(DbConnection::getConnection("localhost","zahra","iti","cafteria"));
+  $pro = new user(DbConnection::getConnection());
 
 $upfile = "../assets/img/".$_FILES['pic']['name'] ;
 

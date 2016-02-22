@@ -56,18 +56,14 @@ tr , td{
 <nav class="navbar navbar-inverse ">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img src="../assets/img/start.jpg" width="50" heigth="50"/>
 
-        </div>
-        <div class="navbar-header">
-
-            <a class="navbar-brand" href="#">Cafertaria</a>
+            <a class="navbar-brand" href="#">ITI Cafertaria</a>
 
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="orders.html">Home</a></li>
             <li class="active"><a href="Show_Products.php">Products</a></li>
-            <li class="active"><a href="all-users.html">Users</a></li>
+            <li class="active"><a href="all-users.php">Users</a></li>
             <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
             <li class="active"><a href="checks.html">Checks</a></li>
 
@@ -104,7 +100,7 @@ tr , td{
 
         require_once "../controllers/DbConnection.php";
         require_once "../controllers/Product.php";
-        $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+        $pro = new Product(DbConnection::getConnection());
         $result = $pro->Get_Products();
         if ($result->num_rows > 0) {
             // output data of each row
@@ -154,7 +150,7 @@ tr , td{
 </div>
 
  </div>   
-<div class=" row col-sm-12 text-center">
+<!-- <div class=" row col-sm-12 text-center">
         <ul class="pagination">
             <li><a href="#">1</a></li>
             <li class="active"><a href="#">2</a></li>
@@ -162,7 +158,7 @@ tr , td{
             <li><a href="#">4</a></li>
             <li><a href="#">5</a></li>
         </ul>
- </div>
+ </div> -->
 
 <br>
 <br>

@@ -1,7 +1,7 @@
 <?php
 require_once "../controllers/DbConnection.php";
 require_once "../controllers/Product.php";
-$pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+$pro = new Product(DbConnection::getConnection());
 echo $_GET["id"];
 $result = $pro->checkstatus($_GET["id"]);
 
@@ -11,7 +11,7 @@ $result = $pro->checkstatus($_GET["id"]);
                 if($row['status'] ==0 ){
                    
                      
-                      $pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+                      $pro = new Product(DbConnection::getConnection());
                       $result = $pro->changestatus($_GET['id'],1);
                       //echo "string1";
                       header("location: ../views/Show_Products.php");
@@ -20,7 +20,7 @@ $result = $pro->checkstatus($_GET["id"]);
 else{
 
 
-$pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+$pro = new Product(DbConnection::getConnection());
                       $result = $pro->changestatus($_GET['id'],0);
                        header("location: ../views/Show_Products.php");
 //echo "string2";

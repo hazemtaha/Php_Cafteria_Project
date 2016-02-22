@@ -2,7 +2,7 @@
 	require_once "DbConnection.php";
     require_once "../models/Orders.php";
     session_start();
-    $orderInterface = new Orders(DbConnection::getConnection("localhost","root","iti","cafteria"));
+    $orderInterface = new Orders(DbConnection::getConnection());
     if (isset($_POST['dest'])) {
     	switch ($_POST['dest']) {
     		case 'cancelOrder':
@@ -26,6 +26,10 @@
                 break; 
             case 'deliver':
                 $orderInterface->setOrderStatus('Out for delivery',$_POST['oId']);
+                $dbConnection = DbConnection::getConnection();
+                $dbConnection->query("CREATE EVENT updateStatus".$_POST['oId']."
+                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 MINUTE DO
+                UPDATE orders SET status = 'Done' WHERE o_id = ".$_POST['oId'].";");
                 break;
             case 'myOrders':
                     $_POST['u_id'] = $_SESSION['u_id'];

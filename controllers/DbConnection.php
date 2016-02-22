@@ -4,9 +4,11 @@
 */
 class DbConnection
 {
-	public static function getConnection($host,$username,$password,$database)
+	public static function getConnection()
 	{
-		$con = new mysqli($host,$username,$password,$database);   
+		$con = new mysqli("127.8.107.2:3306","adminfeFv4jE","Urh58Uq4ebkA","cafteria");   
+		// $con = new mysqli("localhost","root","iti","cafteria");   
+		
 		if ($con->connect_error) {
 			die('Connection Error :	'.$con->connect_error);
 		}

@@ -26,7 +26,7 @@ echo $_FILES['p_img']['name'];
 }
 //echo 'File uploaded successfully<br><br>';
 }
-$pro = new Product(DbConnection::getConnection("localhost","root","iti","cafteria"));
+$pro = new Product(DbConnection::getConnection());
 $result = $pro->insert_product();
 header("location: ../views/Add_product.php");
 /**

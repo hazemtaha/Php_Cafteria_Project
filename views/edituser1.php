@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Edit Users</title>
@@ -7,6 +6,8 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../assets/js/getUserInfo.js"></script>
+
 </head>
 <body>
 
@@ -14,17 +15,21 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Cafeteria</a>
+        <a class="navbar-brand" href="#">ITI Cafeteria</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Users</a></li>
-        <li><a href="#">Manual Order</a></li>
-        <li><a href="#">Checks</a></li>
-        <li><a href="#">All Products</a></li>
-        <li><img src=""/></li>
-        <li><a href="#">Admin</a></li>
+            <li class="active"><a href="orders.html">Home</a></li>
+            <li class="active"><a href="Show_Products.php">Products</a></li>
+            <li class="active"><a href="all-users.php">Users</a></li>
+            <li class="active"><a href="AdminMainPage.html">Manual Orders</a></li>
+            <li class="active"><a href="checks.html">Checks</a></li>
+
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><img src="" width="50" height="50" id="userImg" /> </li>
+            <li><a href="#" id="userName"></a></li>
+            <li><a href="../controllers/logout.php">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -37,9 +42,6 @@
 
   <div class="col-sm-11" >
     <h1> Edit Users </h1>
-  </div>
-  <div class="col-sm-1" >
-      <a href="#">Add user</a>
   </div>
 
 <br> <br> <br> <br>
@@ -63,7 +65,7 @@
                     
                        require_once "../controllers/DbConnection.php";
                        require_once "../controllers/user.php";
-                       $pro = new user(DbConnection::getConnection("localhost","zahra","iti","cafteria"));
+                       $pro = new user(DbConnection::getConnection());
                        $result = $pro->search_user($_GET['id']);
                         if ($result->num_rows == 1) {
                           
@@ -90,14 +92,6 @@
 
 <br> <br> <br> <br>
 
-<div class=" col-sm-12 text-center">
-  <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li class="active"><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul>
- </div>
+
 </body>
 </html>

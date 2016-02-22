@@ -1,7 +1,7 @@
 <?php 
 	require_once "DbConnection.php";
     session_start();
-    $usersInterface = DbConnection::getConnection("localhost","root","iti","cafteria");
+    $usersInterface = DbConnection::getConnection();
     if (isset($_POST['dest'])) {
     	switch ($_POST['dest']) {
            case 'getUsers':
@@ -33,6 +33,24 @@
                 $userInfoSet = $usersInterface->query("select * from users where u_id = ".$_SESSION['u_id']);
                 $userInfo = $userInfoSet->fetch_assoc();
                 echo json_encode($userInfo);
+                break;
+            case 'forgetPassword':
+                $userInfoSet = $usersInterface->query("select * from users where u_email= '".$_POST['email']."';");
+                if ($userInfoSet->num_rows == 1) {
+                    $userInfo = $userInfoSet->fetch_assoc();
+                    $to = $userInfo['u_email'];
+                    $subject = "Password recovery";
+                    $link = "http://cafeteria-hazemt.rhcloud.com/views/resetPassword.html#".$userInfo['u_id'];
+                    $msg = "This Is automatic password recovery message\n Please Click the link below to set a new password\n".$link;
+                    // $msg = wordwrap($msg);
+                    $mail = mail($to, $subject, $msg);
+                    echo "valid";
+                } else {
+                    echo "invalid";
+                } 
+                break;
+            case 'resetPassword':
+                $usersInterface->query("update users set u_password = md5('".$_POST['password']."') where u_id = ".$_POST['u_id'].";");
                 break;
             default:
     			# code...

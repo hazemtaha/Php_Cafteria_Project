@@ -3,7 +3,7 @@ require_once '../controllers/DbConnection.php';
 require_once '../controllers/user.php';
 
 session_start();
-$pro = new user(DbConnection::getConnection("localhost","root","iti","cafteria"));
+$pro = new user(DbConnection::getConnection());
 $result = $pro->Login($_POST["email"],md5($_POST["password"]));
 //var_dump($result);
 //header("location: ../views/Add_product.php");

@@ -29,9 +29,9 @@ if (is_uploaded_file($_FILES['pic']['tmp_name']))
 	
 
 
-$pro = new user(DbConnection::getConnection("localhost","zahra","iti","cafteria"));
+$pro = new user(DbConnection::getConnection());
 $result = $pro->Add_user();
-header("location: ../views/add-user.html");
+header("location: ../views/AddUser.html");
 
 
 
